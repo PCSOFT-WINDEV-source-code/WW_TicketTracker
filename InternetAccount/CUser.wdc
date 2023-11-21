@@ -1,0 +1,481 @@
+#To edit and compare internal_properties, use WINDEV integrated tools.
+#Internal properties refer to the properties of controls in windows, reports, etc.
+info :
+ name : CUser
+ major_version : 28
+ minor_version : 0
+ type : 4
+ description : ""
+ subtype : 0
+class :
+ identifier : 0x1a56500d065d89ce
+ internal_properties : CAAAAAgAAAB2/vstTMCJbS/hlxjFxirSqKvCUuv8YxgpWyl7S3iA
+ code_elements :
+  internal_properties : CAAAAAgAAABm4PVFe9JAHaoZ7pWrapr167xJBrSdz0axAnnnfYhOQaaZf6aFmw+87+hdnze0968KI3y7g0wMbri74fT3L3UE/39pGg==
+  type_code : 10
+  p_codes :
+   -
+     code : |1+
+      CUser is class
+      	m_nUserAccountID is 8-byte int <mapping=UserAccountID>
+      	m_sEmail is string <mapping=Email>
+      	m_sDisplayName is string <mapping=DisplayName>
+      	m_sLastNameFirstName is string <mapping=LastNameFirstName>
+      	m_bEnabledAccount is boolean <mapping=EnabledAccount>
+      	m_nPhotoID is 8-byte int <mapping=PhotoID>
+      	m_sDescription is string <mapping=Description>
+      protected	
+      	m_sPassword is string <mapping=Password>
+      	
+      	m_nLockedRecNum is 8-byte int
+      end
+     type : 131072
+  procedures :
+   -
+     name : Constructeur
+     procedure_id : 1897792309855029710
+     type_code : 27
+     code : |1+
+      Procédure Constructor()
+      
+      m_nLockedRecNum = -1
+     type : 589824
+   -
+     name : Destructeur
+     procedure_id : 1897792309855095246
+     type_code : 28
+     code : |1+
+      Procédure Destructor()
+      
+      if m_nLockedRecNum>0 then
+      	HUnlockRecNum(UserAccount,m_nLockedRecNum)
+      end
+     type : 655360
+   -
+     name : bLoadInfo
+     internal_properties : CAAAAAgAAACwuRPf9eqPvtt1jKNaOFJaw22E+Hem2bzLpCHEvuPvCxdmnf+eiJdK9dsZL+XcGSA2GFbAKvm3DVISrrvtm18OTv/buwxPbfDZJtztjwW/ZO077nPOhVL8pINEL1vyNoCrypTpKZK3gTYaYQbz6yjY1n0CTuPGUF4ygAZc5eH1+FF5UkUHb/fqSv+AasjWpUnEvvC6BMr7XPiwMtSHEDD6maVoB0FLtz5Q01TXtTzCZkx8Hw3Dpz0joPxMrws=
+     procedure_id : 1897792309855160782
+     type_code : 12
+     code : |1+
+      //[%000000bc%]
+      //[%000000bd%]
+      //[%000000be%]
+      //[%000000bf%]
+      //[%000000c0%]
+      //[%000000c1%]
+      //[%000000c2%]
+      //[%000000c3%]
+      //[%000000c4%]
+      //[%000000c5%]
+      //[%000000c6%]
+      
+      Procédure bLoadInfo( local nUserID is 8-byte int = -1, nLock is int = hLockNo )
+      
+      if nUserID=-1 _or_ HReadSeekFirst(UserAccount,UserAccountID,nUserID,nLock) then
+      	FileToMemory(object,UserAccount)
+      	result True
+      end
+      
+      result False
+      
+      case Error:
+      ErrorPropagate()
+     type : 458752
+   -
+     name : bOwnsRights
+     internal_properties : CAAAAAgAAAB0e7MLL2AeAyuj/GoTMXxQfHTdJz6XW8qRtzW85+D0Nry07rPPQ2Sa1a+ywiFTpAiNwtErikcHnmkRZDtFSEcCmUsrIo1wghsGwkT3tns65MKjdlHbU2NPWU5MLDF51E+2JW70LSt8ycOzEt7DIc5CvFCvLMMgWjj8/dG+1cezFltMc1Olj2OqDrBf4F5GiS2/M3duUkwM7zcktdalPFiyecoST5TQZixeFuGMesCE9XcsA9iqrvVLSvuE+ZEUu4E4QJNThjlpd1dpMBUfaHUuIO/D40c=
+     procedure_id : 1897792309855226318
+     type_code : 12
+     code : |1+
+      //[%000000c7%]
+      //[%000000c8%]
+      //[%000000c9%]
+      //[%000000ca%]
+      //[%000000cb%]
+      //[%000000cc%]
+      //[%000000cd%]
+      //[%000000ce%]
+      //[%000000cf%]
+      //[%000000d0%]
+      //[%000000d1%]
+      
+      Procédure bOwnsRights( local sRightsName is string, local sParamRights is string )
+      
+      //[%000000d2%]
+      if COL_ManageAccount.gaaRights[sRightsName]..Empty then
+      	ErrorThrow(1,"The requested rights do not exist")
+      	result False
+      end
+      
+      if HReadSeekFirst(RightsAccount,FullUserRightsID,[sRightsName,sParamRights,m_nUserAccountID])=False then
+      	result False
+      end
+      
+      result RightsAccount.Value
+      
+      case Error:
+      ErrorPropagate()
+     type : 458752
+   -
+     name : DeleteUser
+     internal_properties : CAAAAAgAAACBY9n+O0bbhP3rR7/BIDB6JDwBtz4kAl1xoPir1tfeaBUYptqp8JuM698ZHOXifUVa/+Gf2Okzz9s6/yOZ/bVw9wOM5JOcx5hk7ZCy44SFn6e4vRrIhWHRMBXJKj5tYmLlkpNyZUpv+M/xBQGxMTIqCIkbYRmSJLORP5gVk9WpekPf67JLCYV7cd4kh4rQY/mnuJVBGJSoqkTE1M/tdKQo3B4ZsI7+HPfz+FAtq2JYaQnecg==
+     procedure_id : 1897792309855291854
+     type_code : 12
+     code : |1+
+      //[%000000d3%]
+      //[%000000d4%]
+      //[%000000d5%]
+      //[%000000d6%]
+      //[%000000d7%]
+      //[%000000d8%]
+      //[%000000d9%]
+      //[%000000da%]
+      //[%000000db%]
+      //[%000000dc%]
+      
+      Procédure DeleteUser()
+      
+      if UserAccount.UserAccountID<>m_nUserAccountID then
+      	if HSeekFirst(UserAccount,UserAccountID,m_nUserAccountID,hLockWrite)=False then
+      		ErrorThrow(1,"The user does not exist")
+      		return
+      	end
+      end
+      
+      HDelete(UserAccount)
+      
+      case Error:
+      ErrorPropagate()
+     type : 458752
+   -
+     name : Lock
+     internal_properties : CAAAAAgAAAAN9zXd14Sqy2uLF1KN9oJO2xz4AwokfhcUgOQXeETIRcWrRaSTkCloQ01JYpVyPdsSYTc5JlWtE9P4GxWFwSki/wXm9umkrSxk+9AwFxAhSTc6dwgKwRsZrCD6G+/W+wNs4WjjZkumYZwIIm7u9tfPT/iYgmpDm/gSJoViIFrCEyqKzL+49mgs/i2ppPfltBbL9wDJLmubHeuzIuMZdKTAXxFdgGw+5E72m5O5ACsZbYVS/g==
+     procedure_id : 1897792309855357390
+     type_code : 12
+     code : |1+
+      //[%000000dd%]
+      //[%000000de%]
+      //[%000000df%]
+      //[%000000e0%]
+      //[%000000e1%]
+      //[%000000e2%]
+      //[%000000e3%]
+      //[%000000e4%]
+      //[%000000e5%]
+      //[%000000e6%]
+      
+      Procédure Lock()
+      
+      HReadSeekFirst(UserAccount,UserAccountID,m_nUserAccountID,hLockWrite)
+      m_nLockedRecNum = HRecNum(UserAccount)
+      
+      case Error:
+      ErrorPropagate()
+     type : 458752
+   -
+     name : Saves
+     internal_properties : CAAAAAgAAAB0e7MLL2AeAyuj/GoTMXxQfHTdJz6XW8qRtzW85+D0Nry07rPPQ2Sa1a+ywiFTpAiNwtErikcHnmkRZDtFSEcCmUsrIo1wghsGwkT3tns65MKjdlHbU2NPWU5MLDF51E+2JW70LSt8ycOzEt7DIc5CvFCvLMMgWjj8/dG+1cezFltMc1Olj2OqDrBf4F5GiS2/M3duUkwM7zcktdalPFiyecoST5TQZixeFuGMesCE9XcsA9iqrvVLSvuE+ZEUu4E4QJNThjlpd1dpMBUfaHUuIO/D40c=
+     procedure_id : 1897792309855422926
+     type_code : 12
+     code : |1+
+      //[%000000e7%]
+      //[%000000e8%]
+      //[%000000e9%]
+      //[%000000ea%]
+      //[%000000eb%]
+      //[%000000ec%]
+      //[%000000ed%]
+      //[%000000ee%]
+      //[%000000ef%]
+      //[%000000f0%]
+      
+      Procédure Saves()
+      
+      if m_nUserAccountID=0 then
+      	HReset(UserAccount)
+      end
+      
+      MemoryToFile(object,UserAccount)
+      
+      if m_nUserAccountID=0 then
+      	HAdd(UserAccount)
+      	m_nUserAccountID = UserAccount.UserAccountID
+      else
+      	HModify(UserAccount)
+      end
+      
+      case Error:
+      ErrorPropagate()
+     type : 458752
+   -
+     name : ChangeRights
+     internal_properties : CAAAAAgAAACiw/n5S5teuBDxvDAmtUfxmLbq2thOjvagbYhExfcc1pZqmdF5X652F0Whazcd5RufrGTDwjUTcWuxEPqPStu+eE/pR0yp7+ksquSu7yRI9U8vdsuMLUaab3D8F3HIDuOr/2LkI51eSZveB2Foa+lEriNZmW4o0zCFIp7nfH+QtPkBQRIc5cDk1XtO5RlQUhEDq9Xj7XDcTjdQScSvM9alquP1HvjN0Au4xP+jS5F/L3AlSxHVKfviSKWuiouKVLlwb3rHLgNCDxwkMlk=
+     procedure_id : 1897792309855488462
+     type_code : 12
+     code : |1+
+      //[%000000f1%]
+      //[%000000f2%]
+      //[%000000f3%]
+      //[%000000f4%]
+      //[%000000f5%]
+      //[%000000f6%]
+      //[%000000f7%]
+      //[%000000f8%]
+      //[%000000f9%]
+      //[%000000fa%]
+      //[%000000fb%]
+      //[%000000fc%]
+      
+      Procédure ChangeRights( local sRightsName is string , local sParamRights is string , local nRightsValue is int )
+      
+      //[%000000fd%]
+      if HReadSeekFirst(RightsAccount,FullUserRightsID,[sRightsName,sParamRights,m_nUserAccountID],hLockWrite) then
+      	RightsAccount.Value = nRightsValue
+      	result HModify(RightsAccount)
+      end
+      
+      //[%000000fe%]
+      RightsAccount.UserAccountID = m_nUserAccountID
+      RightsAccount.RightsName = sRightsName
+      RightsAccount.RightsParam = sParamRights
+      RightsAccount.Value = nRightsValue
+      
+      result HAdd(RightsAccount)
+      
+      case Error:
+      ErrorPropagate()
+     type : 458752
+   -
+     name : bCheckPassword
+     internal_properties : CAAAAAgAAAAiTeTqTwXL16wHi4T9Pi5hxqRtnOiWvmEw8lz+HdhSq7ZRW+Bmwsau7oZiUJYEYcruHva7rjRxw16qEbbc2nw9VaZQ9FAMCz40TP51Xaqhiq8MfHoOcxgn9ZoV5cAtlTCsa4ww9fbahZmEXzBRyX/W4bBYSbcSEa7TQPrkU1dq2o1/6y77WYN7Fev+rkD4zUbnmLn+Ebo=
+     procedure_id : 1897792309855553998
+     type_code : 12
+     code : |1-
+      //[%000000ff%]
+      //[%00000100%]
+      //[%00000101%]
+      //[%00000102%]
+      //[%00000103%]
+      //[%00000104%]
+      //[%00000105%]
+      //[%00000106%]
+      //[%00000107%]
+      //[%00000108%]
+      
+      Procédure bCheckPassword( local sPassword is string )
+      
+      sHashPwd is string = sHashPassword(sPassword)
+      
+      result m_sPassword=sHashPwd
+      
+      case Error:
+      ErrorPropagate()
+      result False
+     type : 458752
+   -
+     name : s_clConnect
+     internal_properties : CAAAAAgAAAC3fsqDWq+xw9Bxsl2U/ILbYnY6sRHnMGfWCezIXMKys5f3DRUpit545ytjJ86Dtqg9/Yxcz5mYOlLqJ4bMGqA=
+     procedure_id : 1897792309855619534
+     type_code : 12
+     code : |1+
+      //[%00000109%]
+      //[%0000010a%]
+      //[%0000010b%]
+      //[%0000010c%]
+      //[%0000010d%]
+      //[%0000010e%]
+      //[%0000010f%]
+      //[%00000110%]
+      //[%00000111%]
+      //[%00000112%]
+      //[%00000113%]
+      Procédure global s_clConnect( sIdentifier is string, sPassword is string ) : CUser
+      
+      //[%00000114%]
+      if (HReadSeekFirst(UserAccount,Email,sIdentifier) = False) _and_ (HReadSeekFirst(UserAccount,DisplayName,sIdentifier) = False) then
+      	//[%00000115%]
+      	result Null
+      end
+      
+      //[%00000116%]
+      sHashPwd is string = sHashPassword(sPassword)
+      if UserAccount.Password<>sHashPwd then
+      	//[%00000117%]
+      	result Null
+      end
+      
+      //[%00000118%]
+      if UserAccount.EnabledAccount=False then
+      	result Null
+      end
+      
+      //[%00000119%]
+      clUser is CUser
+      if clUser.bLoadInfo(UserAccount.UserAccountID) then
+      	result clUser
+      end
+      
+      result Null
+     type : 458752
+   -
+     name : s_arrListUsers
+     internal_properties : CAAAAAgAAABUHz8hVhFi02/J7EhBrMlSNO0MeAqWBppfCjnxm/4kgJdm7XWgB5T6wjMexC1lxpG0E9/miOIxDqpCyq3t86PoLtBkATH/1oB8x09XjEnNP/qUDpwcbSPg0NLupmnY36w8JgJ/5axk6CsPJRVV4Ib+UFiKlFTTIkF739C1c2Up+mtV1Q==
+     procedure_id : 1897792309855685070
+     type_code : 12
+     code : |1+
+      //[%0000011a%]
+      //[%0000011b%]
+      //[%0000011c%]
+      //[%0000011d%]
+      //[%0000011e%]
+      //[%0000011f%]
+      //[%00000120%]
+      //[%00000121%]
+      //[%00000122%]
+      //[%00000123%]
+      
+      Procédure global s_arrListUsers()
+      
+      arrUser is array of CUser
+      
+      for each UserAccount 
+      	clUser is CUser
+      	if clUser.bLoadInfo() then
+      		Add(arrUser,clUser)
+      	end
+      end
+      
+      case Error:
+      ErrorPropagate()
+      DeleteAll(arrUser)
+      
+      end:
+      result arrUser
+      
+     type : 458752
+   -
+     name : s_pclFindUser
+     procedure_id : 1897792309855750606
+     type_code : 12
+     code : |1+
+      //[%00000124%]
+      //[%00000125%]
+      //[%00000126%]
+      //[%00000127%]
+      //[%00000128%]
+      //[%00000129%]
+      //[%0000012a%]
+      //[%0000012b%]
+      //[%0000012c%]
+      Procédure global s_pclFindUser( local nUserID is 8-byte int)
+      
+      clUser is CUser
+      if clUser.bLoadInfo(nUserID) then
+      	result clUser
+      end
+      
+      result Null
+      
+      
+     type : 458752
+   -
+     name : sURLPhoto
+     procedure_id : 1897792309855816142
+     type_code : 12
+     code : |1+
+      //[%0000012d%]
+      //[%0000012e%]
+      //[%0000012f%]
+      //[%00000130%]
+      //[%00000131%]
+      //[%00000132%]
+      //[%00000133%]
+      //[%00000134%]
+      //[%00000135%]
+      Procédure sURLPhoto()
+      
+      aaParam is ASSOCIATIVE ARRAY of strings = [ ["id" , m_nPhotoID] ]
+      
+      result BuildURL(PageAddress(get_user_image),aaParam,URL_ENCODE_PARAM_VAL)
+      
+      
+     type : 458752
+   -
+     name : ChangePhoto
+     procedure_id : 1897792309855881678
+     type_code : 12
+     code : |1+
+      //[%00000136%]
+      //[%00000137%]
+      //[%00000138%]
+      //[%00000139%]
+      //[%0000013a%]
+      //[%0000013b%]
+      //[%0000013c%]
+      //[%0000013d%]
+      //[%0000013e%]
+      Procédure ChangePhoto( sPhotoFile is string )
+      
+      
+      <si CibleExécution=SiteWindows>
+      	
+      	if ExtractString(BitmapInfo(sPhotoFile),1)="BAD" then
+      		return
+      	end
+      	
+      <fin>
+      
+      
+      
+      HReset(PhotoAccount)
+      HLinkMemo(PhotoAccount,Photo,sPhotoFile)
+      HAdd(PhotoAccount)
+      
+      m_nPhotoID = PhotoAccount.PhotoAccountID
+      Lock()
+      UserAccount.PhotoID = m_nPhotoID
+      HModify(UserAccount)
+      
+      
+      
+     type : 458752
+  properties :
+   -
+     name : p_Password
+     identifier : 0x1a56500d065e89ce
+     type_code : 103
+     p_codes :
+      -
+        code : |1+
+         Procédure public p_Password(sValue is string)
+         
+         m_sPassword = sHashPassword(sValue)
+        type : 2031616
+     template_refs : []
+   -
+     name : p_DisplayName
+     identifier : 0x1a56500d065f89ce
+     type_code : 103
+     p_codes :
+      -
+        code : |1+
+         Procédure public p_DisplayName()
+         
+         if m_sDisplayName="" then
+         	result m_sEmail
+         end
+         
+         result m_sDisplayName+" ("+m_sEmail+")"
+        type : 1966080
+     template_refs : []
+  procedure_templates : []
+  property_templates : []
+ code_parameters :
+  internal_properties : CAAAAAgAAACVGQgYbalU7DKC3oH4ItDrjtcTHXXV/EuH8q0IbhyQlw==
+  original_name : Classe1
+resources :
+ string_res :
+  identifier : 0x100699fe2296b3de
+  internal_properties : CAAAAAgAAACm76HWfKGWp33VjXInA4cRlqArlgTTA862QGt72W2ld5Y=
+custom_note :
+ internal_properties : CAAAAAgAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ

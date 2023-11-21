@@ -1,0 +1,752 @@
+#To edit and compare internal_properties, use WINDEV integrated tools.
+#Internal properties refer to the properties of controls in windows, reports, etc.
+info :
+ name : SET_SiteUtility
+ major_version : 28
+ minor_version : 0
+ type : 7
+ description : ""
+ subtype : 0
+procedure_set :
+ identifier : 0x1ae2e365063bc172
+ internal_properties : CAAAAAgAAABGLu41kG7fjQV3iS4F72qmnKaNh5694reolNKIW0iw
+ code_elements :
+  type_code : 31
+  p_codes :
+   -
+     internal_properties : CAAAAAgAAADJq5wXL5wpBtGaV5js53YfEUu+3EaXFwsZ0KsmeGVJWavGuJhVctUxEkm/hiwSe9xBvCikxjpxpeVsL6Bd84+z2nITRmZ782XP4Qn3G21RYcCqk6rPHmV0//dcF3xs3A+uqg7kg43IDMIUNW4=
+     code : |1+
+      // Set of utility procedures for the web sites
+      gaaParameters is ASSOCIATIVE ARRAY of strings						// Global site parameters
+      gbInitCompleted is boolean = False									// True when the set was initialized
+      gsSiteURLDatabase is string											// Base URL of site (used to build the URL)
+      gaaQuery		is ASSOCIATIVE ARRAY (ccIgnoreCase) of strings		// List the parameters received in command line
+      
+      constant
+      	// Parameters for sending emails
+      	PARAM_SENDER_EMAIL = "PARAM_EMAIL_SENDER"
+      	PARAM_EMAIL_SERVER = "PARAM_EMAIL_SERVER"
+      	PARAM_EMAIL_PORT = "PARAM_EMAIL_PORT"
+      	PARAM_EMAIL_USER = "PARAM_EMAIL_USER"
+      	PARAM_EMAIL_PASSWORD = "PARAM_EMAIL_PASSWORD"
+      	PARAM_EMAIL_SMTP_OPTION = "PARAM_EMAIL_SMTP_OPTION"
+      	
+      	// Name of file of global site parameters
+      	NAME_SITE_PARAM_FILE = "site_param.ini"
+      	SECTION_PARAM = "SITE_PARAM"
+      	
+      	// Encode the URL parameters (BuildURL function)
+      	URL_ENCODE_PARAM_VAL = True
+      	URL_PRESERVE_PARAM_VAL = False
+      	
+      	// "Parameter not found" constant
+      	ERR_NO_ITEM = "#NA#"
+      end
+     type : 720896
+  procedures :
+   -
+     name : BuildURL
+     internal_properties : CAAAAAgAAAAYKRIQ9+nYQVWJ1a5fWZuKSs/J18gK49GvDvddnkhYMWHnV4BjoCUNf6zH0jbhFW3oS+MAPc1WmujDB62xsEB2jggaUjaS8jIABlhFyCNHvjKCB+FEaTo+lKWteIcSymOwgCYynzsrvf+VnhILrA==
+     procedure_id : 1937360812758581618
+     type_code : 15
+     code : |1-
+      // Summary: Builds a URL by adding parameters to a base URL
+      // Syntax:
+      //[ <Result> = ] BuildURL (<sPageURL> is string, <aaAdditionalParameters> is associative array, <bEncodeParam> is boolean)
+      //
+      // Parameters:
+      //	sPageURL (ANSI string): Base URL (must contain no parameter!)
+      //	aaAdditionalParameters (associative array): Additional parameters
+      //	bEncodeParam (boolean): URL_ENCODE_VAL_PARAM if the value of parameters must be encoded (if assignment to ..URL)
+      // Return value:
+      // 	ANSI string: URL
+      // Automatic process of errors:   run the block of code CASE ERROR
+      //
+      
+      Procédure BuildURL( local sURLPage is string, local aaAdditionalParameters is ASSOCIATIVE ARRAY of strings, local bEncodeParam is boolean )
+      
+      sFinalURL is string
+      
+      // It the URL received in parameter is a relative URL, add the base URL of the site
+      // in order for IIS not to perform any resolution shortcut
+      if (sURLPage[~"http")=False then
+      	sFinalURL = gsSiteURLDatabase
+      end
+      
+      // Removes the parameters from the received URL
+      nParamPos is int = Position(sURLPage,"?")
+      if nParamPos>0 then
+      	sFinalURL += sURLPage[[ to nParamPos-1]]
+      else
+      	sFinalURL += sURLPage
+      end
+      
+      // Add parameters
+      if aaAdditionalParameters..Occurrence>0 then
+      	sFinalURL += "?"
+      	for each sVal, sKey of aaAdditionalParameters
+      		// Encodes the parameter if requested
+      		sEncodeVal is string = sVal
+      		if bEncodeParam then
+      			sEncodeVal = URLEncode(sVal)
+      		end
+      		// Encodes the parameter if it is a URL
+      		if Position(sVal,["?","/","&","="])>0 then
+      			sEncodeVal = URLEncode(sEncodeVal,encodeURLParameter)
+      		end
+      		
+      		sFinalURL += sKey + "=" + sEncodeVal + "&"
+      	end
+      	// Deletes the additional "&"
+      	sFinalURL = Truncate(sFinalURL,1,numberOfCharactersToDelete)
+      end
+      
+      // Add the identifier of AWP context (if applicable)
+      if IdentifierAWPContext()<>"" then
+      	if aaAdditionalParameters..Occurrence>0 then
+      		sFinalURL += "&" + IdentifierAWPContext()
+      	else
+      		sFinalURL += "?" + IdentifierAWPContext()
+      	end
+      end
+      
+      result sFinalURL
+      
+      case Error:
+      ErrorPropagate("URL build error")
+      result ""
+     type : 458752
+   -
+     name : DateTime_ToString
+     internal_properties : CAAAAAgAAACWoHFxWVj/DIK+itiQ8FXzLCTsSFLW1DeA8QQhDpDJyz4JPxyWTHnyItfhJL6a4zdHteng0ubIxHABRajmIH58jS7BFbq0c8ojxU0mLjL8EA3N+WDsnM96sBr6o24Oq3K9mtuYJAD9Qe5wazbBM6o2zWNBnwnlgP4DaNLLXycY/BVznePU6u1k7Mbr/XFjuXo=
+     procedure_id : 1937360812758647154
+     type_code : 15
+     code : |1-
+      // Summary: Change a DateTime type into string
+      // Syntax:
+      //[ <Result> = ] DateTime_ToString (<dtDateTime> is datetime [, <sFormat>])
+      //
+      // Parameters:
+      //	dtDateTime (datetime): date/time to transform
+      //	sFormat (default value=""): display format
+      // Automatic error processing:   run the block of code CASE ERROR
+      //
+      
+      Procédure DateTime_ToString(local dtDateTime is datetime,local sFormat = "")
+      
+      sAMPM is string
+      
+      if sFormat = "" then
+      	result DateToString(dtDateTime..Date) + [" "] + TimeToString(dtDateTime..Time,"HH:MM")
+      end
+      
+      // Replace in the format directly
+      sFormat = Replace(sFormat,"DDDD",DateToDayInAlpha(dtDateTime..Date))
+      sFormat = Replace(sFormat,"DDDD",DateToDayInAlpha(dtDateTime..Date))
+      sFormat = Replace(sFormat,"DDD",DateToDayInAlpha(dtDateTime..Date)[[ 1 on 3]] + ".")
+      sFormat = Replace(sFormat,"DD",NumToString(dtDateTime..Day, "02d"))
+      sFormat = Replace(sFormat,"D",dtDateTime..Day)
+      
+      sFormat = Replace(sFormat,"MMMM",DateToMonthInAlpha(dtDateTime..Date))
+      sFormat = Replace(sFormat,"MMM",DateToMonthInAlpha(dtDateTime..Date)[[ 1 on 3]] + ".")
+      sFormat = Replace(sFormat,"MM",NumToString(dtDateTime..Day, "02d"))
+      sFormat = Replace(sFormat,"M",dtDateTime..Month)
+      
+      sFormat = Replace(sFormat,"YYYY",dtDateTime..Year)
+      sFormat = Replace(sFormat,"AA",dtDateTime..Year[[ 2 to ]])
+      
+      
+      if Position(sFormat,"AP") > 0 then
+      	// Switch the time into AM/PM
+      	sAMPM = dtDateTime..Hour > 12 ? "PM" else "AM"	
+      	if dtDateTime..Hour > 12 then
+      		dtDateTime..Hour -= 12
+      	end	
+      end
+      
+      sFormat = Replace(sFormat,"HH",dtDateTime..Hour)
+      sFormat = Replace(sFormat,"mm",dtDateTime..Minute)
+      sFormat = Replace(sFormat,"ss",dtDateTime..Second)
+      sFormat = Replace(sFormat,"lll",dtDateTime..Millisecond)
+      sFormat = Replace(sFormat,"ll",dtDateTime..Millisecond /10)
+      sFormat = Replace(sFormat,"AP",sAMPM)
+      
+      result sFormat
+      
+      case Error:
+      ErrorPropagate()
+      result ""
+     type : 458752
+   -
+     name : _LoadSiteParameter
+     internal_properties : CAAAAAgAAADaHgwlxC/x3lF+xiP4rot9Y1YmSaRCBNw5QMo9tP594ezKDVtu7v1ouKE+mTfmYkNEcFPQjXXKt/ZST+kNKo59AOEzDin6KnlOIUIXtskZQyjZDrBUYrU=
+     procedure_id : 1937360812758712690
+     type_code : 15
+     code : |1+
+      // Summary: Initializes the array of global site parameters
+      // Syntax:
+      //_LoadSiteParameter ()
+      //
+      // Parameters:
+      //	None
+      // Return value:
+      // 	None
+      //// Automatic process of errors:   run the block of code CASE ERROR
+      //
+      
+      Procédure private _LoadSiteParameter()
+      
+      DeleteAll(gaaParameters)
+      if fFileExist(SiteParamFile()) then
+      	sParamList is string = INIRead(SECTION_PARAM,"","",SiteParamFile())
+      	for each string sParamName of sParamList SEPARATED BY CR
+      		gaaParameters[sParamName] = INIRead(SECTION_PARAM,sParamName,"",SiteParamFile())
+      	end
+      end
+      
+      case Error:
+      ErrorPropagate()
+     type : 458752
+   -
+     name : ReadSiteParameter
+     internal_properties : CAAAAAgAAAAO3YsoLGctpaQ8nBFO9Nf4RoeJi8Nl0HuwLR5IUDO0kbx+GJ9DCXcIR52W25nwCF0a+UXUWSPOtp9Jtf+zMtgrY1RTBkswaCZYAkwKrgrD9IB8CfmIOkGygAs9Y5vVK0UOGnOIW+s8/I26m5+GMPeqRW90nlWdmSImbYrdKoXofojwD+g=
+     procedure_id : 1937360812758778226
+     type_code : 15
+     code : |1-
+      // Summary: Returns the value of a site parameter
+      // Syntax:
+      //[ <Result> = ] ReadSiteParameter (<sParameterName> is string [, <sDefaultValue> is string])
+      //
+      // Parameters:
+      //	sParameterName (ANSI string): Name of parameter
+      //	sDefaultValue (ANSI string - default value=""): <specify the role of sDefaultValue>
+      // Return value:
+      // 	ANSI string: Value of parameter
+      //// Automatic process of errors:   run the block of code CASE ERROR
+      //
+      
+      Procédure ReadSiteParameter( sParameterName is string, sDefaultValue is string = "" )
+      
+      if gaaParameters[sParameterName]..Empty then
+      	gaaParameters[sParameterName] = sDefaultValue
+      end
+      
+      result gaaParameters[sParameterName]
+      
+      case Error:
+      ErrorPropagate()
+      result ""
+     type : 458752
+   -
+     name : ChangeSiteParameter
+     internal_properties : CAAAAAgAAADaHgwlxC/x3lF+xiP4rot9Y1YmSaRCBNw5QMo9tP594ezKDVtu7v1ouKE+mTfmYkNEcFPQjXXKt/ZST+kNKo59AOEzDin6KnlOIUIXtskZQyjZDrBUYrU=
+     procedure_id : 1937360812758843762
+     type_code : 15
+     code : |1+
+      // Summary: Changes the value of a global site parameter
+      // Syntax:
+      //ChangeSiteParameter (<sParamName> is string, <sParamValue> is string [, <bSave> is boolean])
+      //
+      // Parameters:
+      //	sParamName (ANSI string): Name of parameter
+      //	sParamValue (ANSI string): New value
+      //	bSave (boolean - default value=1): True to save the new parameter value in the file
+      // Return value:
+      // 	None
+      //// Automatic process of errors:   run the block of code CASE ERROR
+      //
+      
+      Procédure ChangeSiteParameter(local sParamName is string,local sParamValue is string, local bSave is boolean = True)
+      
+      gaaParameters[sParamName] = sParamValue
+      
+      if bSave then
+      	INIWrite(SECTION_PARAM,sParamName,sParamValue,SiteParamFile())
+      end
+      
+      
+      case Error:
+      ErrorPropagate()
+     type : 458752
+   -
+     name : bInitUtility
+     internal_properties : CAAAAAgAAAC9zfs1x3xFw2f6VObVdN/WBpOHaD+OIm3jf9iJzzkYvVap4fPJU0FxI2x6BjaQQ2tzjf9vljtEhSbxm+KfqnGGoQSQ0bPREkvNzt/w+gSu+ZcMnPqCrxW7SH9T7m/NsfiC3Z9ulsqKYZbbFH5DdDIHBvn+dqlBKu0NTNH4A9xtkaCu15rEIU5mlu6ARftSMhVaGEfzlXwtE4cgUagl4S+2lWwqR13ap3QqjBh9r41RKUngECc=
+     procedure_id : 1937360812758909298
+     type_code : 15
+     code : |1+
+      // Summary: Initializes the internal component
+      // Syntax:
+      //[ <Result> = ] bInitUtility ()
+      //
+      // Parameters:
+      //	None
+      // Return value:
+      // 	boolean: // Returns True during the first initialization
+      // The caller knows that the variables of the set of procedures have their default values and that they can be replaced
+      //
+      // Returns False during the other initializations (once the AWP context is re-read)
+      // The caller knows that the variables have been re-read in the AWP session
+      //// Automatic process of errors:   run the block of code CASE ERROR
+      //
+      
+      Procédure bInitUtility()
+      
+      // Elements to store in the AWP context
+      DeclareAWPContext(gaaParameters)
+      DeclareAWPContext(gbInitCompleted)
+      DeclareAWPContext(gsSiteURLDatabase)
+      
+      if gbInitCompleted=False then
+      	// Loads the site parameters from the database
+      	_LoadSiteParameter()
+      	
+      	// Tries to automatically define the base URL of the site
+      	sFullURL is string = PageAddress(displayerror,paFULL)
+      	sRelativeURL is string = PageAddress(displayerror,paRELATIVE)
+      	gsSiteURLDatabase = Truncate(sFullURL,Length(sRelativeURL),numberOfCharactersToDelete)
+      	
+      	// The initialization is completed
+      	gbInitCompleted = True
+      	
+      	// Returns True during the first initialization
+      	// The caller knows that the variables of the set of procedures have their default values and that they can be replaced
+      	result True
+      end
+      
+      // Returns False during the other initializations (once the AWP context is re-read)
+      // The caller knows that the variables have been re-read in the AWP session
+      result False
+      
+      case Error:
+      ErrorPropagate()
+      result True
+     type : 458752
+   -
+     name : BuildSimpleURL
+     internal_properties : CAAAAAgAAADwEaq4P13oUdUhXWb3KYsauo+hLwBSk2k3bqcNnlCQCam/Z9CTwN1dH6T/mm7x9Q3Iu1uo1eVmpsT/W3lNFOQa0syGPkKG5h6sYjxR9Od7AsYWA+2QLR4qIEExJBNmfhfEVJJ+S0+vYafNRqrjxA==
+     procedure_id : 1937360812758974834
+     type_code : 15
+     code : |1-
+      // Summary: Builds a URL by adding parameters to a base URL
+      // Syntax:
+      //[ <Result> = ] BuildSimpleURL (<sPageURL> is string)
+      //
+      // Parameters:
+      //	sPageURL (ANSI string): Base URL
+      // Return value:
+      // 	ANSI string: URL
+      // Automatic process of errors:   run the block of code CASE ERROR
+      //
+      
+      Procédure BuildSimpleURL( local sURLPage is string )
+      
+      sFinalURL is string
+      
+      // It the URL received in parameter is a relative URL, add the base URL of the site
+      // in order for IIS not to perform any resolution shortcut
+      if (sURLPage[~"http")=False then
+      	sFinalURL = gsSiteURLDatabase
+      end
+      
+      // Adds the URL of the page and the identifier of AWP context
+      sFinalURL += sURLPage + ["?"] + IdentifierAWPContext()
+      
+      result sFinalURL
+      
+      case Error:
+      ErrorPropagate()
+      result ""
+     type : 458752
+   -
+     name : ToastError_Srv
+     procedure_id : 1937360812759040370
+     type_code : 15
+     code : |1+
+      // Summary: Displays an error toast (used to get the same format in the entire site)
+      // Syntax:
+      //ToastError_Srv (<sErrorMessage> is string)
+      //
+      // Parameters:
+      //	sErrorMessage (ANSI string): Text of error
+      // Return value:
+      // 	None
+      //
+      Procédure ToastError_Srv(local sErrorMessage is string)
+      
+      ToastDisplay(sErrorMessage,toastShort,vaTop,haCenter,PastelRed)
+      
+     type : 458752
+   -
+     name : ToastInfo_Srv
+     procedure_id : 1937360812759105906
+     type_code : 15
+     code : |1+
+      // Summary: Displays an information toast (used to get the same format in the entire site)
+      // Syntax:
+      //ToastInfo_Srv (<sMessage> is string)
+      //
+      // Parameters:
+      //	sMessage (ANSI string): Information text
+      // Return value:
+      // 	None
+      //
+      Procédure ToastInfo_Srv(local sMessage is string )
+      
+      ToastDisplay(sMessage,toastLong,vaTop,haCenter,PastelGreen)
+      
+     type : 458752
+   -
+     name : SendingEmail
+     internal_properties : CAAAAAgAAACAw9VVjEJjZLuNDbyUORX2laQs6MMd+XRyuTKHnGnb5OmSlpihx+w/TIBYrwJNfVF/OjmEHE1T2kSAvGDAUvzAgz7TedYYsmK9Auof++CZ3z4sEtFukFcQ/1LqI7zQVA05PD61WR/jONkCzYGK/an4mRyp3TTOuTpODTJV7jkMEqOpcMB6W2WxeOS66zuAfTp3UwwA7O3RhWVimxz5fZshVs4N+g==
+     procedure_id : 1937360812759171442
+     type_code : 15
+     code : |1-
+      // Summary: Sends an email
+      // Syntax:
+      //SendEmail (<CEmail> is Email)
+      //
+      // Parameters:
+      //	cEmail (Email): Email variable containing the message to send
+      // Return value:
+      // 	None
+      //// Automatic process of errors:   run the block of code CASE ERROR
+      //
+      
+      Procédure SendingEmail( local cEmail is an Email )
+      
+      EmailSetTimeOut(5)
+      
+      cEmailSession is an emailSMTPSession
+      with cEmailSession
+      	.AdresseServeur = ReadSiteParameter(PARAM_EMAIL_SERVER,"localhost")
+      	.Port = ReadSiteParameter(PARAM_EMAIL_PORT,"25")
+      	.Nom = ReadSiteParameter(PARAM_EMAIL_USER)
+      	.MotDePasse = Uncrypt(ReadSiteParameter(PARAM_EMAIL_PASSWORD),"",compressNone + cryptNone, encodeBASE64)
+      	.Option = ReadSiteParameter(PARAM_EMAIL_SMTP_OPTION)
+      end
+      
+      EmailStartSession(cEmailSession)
+      EmailSendMessage(cEmailSession,cEmail,emailOptionEncodeHeader)
+      EmailCloseSession(cEmailSession)
+      
+      case Error:
+      ErrorPropagate()
+     type : 458752
+   -
+     name : ReadIdentifierCurrentAWP
+     internal_properties : CAAAAAgAAAAO3YsoLGctpaQ8nBFO9Nf4RoeJi8Nl0HuwLR5IUDO0kbx+GJ9DCXcIR52W25nwCF0a+UXUWSPOtp9Jtf+zMtgrY1RTBkswaCZYAkwKrgrD9IB8CfmIOkGygAs9Y5vVK0UOGnOIW+s8/I26m5+GMPeqRW90nlWdmSImbYrdKoXofojwD+g=
+     procedure_id : 1937360812759236978
+     type_code : 15
+     code : |1-
+      // Summary: Retrieves the identifier of current AWP session
+      // Syntax:
+      //[ <Result> = ] ReadIdentifierCurrentAWP ()
+      //
+      // Parameters:
+      //	None
+      // Return value:
+      // 	ANSI string: // 	None
+      //// Automatic process of errors:   run the block of code CASE ERROR
+      //
+      
+      Procédure ReadIdentifierCurrentAWP()
+      
+      sAWPID		is string ANSI
+      sCookies is string
+      nPos is int
+      
+      sAWPID = IdentifierAWPContext()
+      if sAWPID = "" then
+      	// Finds the AWP ID in the parameters
+      	aaQuery is ASSOCIATIVE ARRAY of strings = PageParameterExtract("AWP")
+      	for each sValue, sKey of aaQuery
+      		if sKey [= "AWP" then
+      			sAWPID = sKey + ["="] + sValue
+      			break
+      		end
+      	end
+      	
+      	// If the AWP ID was not found in the parameters
+      	if sAWPID = "" then
+      		
+      		// Reads the cookies
+      		sCookies = ExtractString(SysEnvironment("HTTP_COOKIE"),2,"=")
+      		
+      		// Finds the AWP ID in the cookies
+      		nPos = Position(sCookies, "AWP_CSESSION")
+      		if nPos > 0 then
+      			
+      			// Extracts the AWP ID
+      			sAWPID = ExtractString(sCookies[[nPos+1 to]], 1, ";")
+      		else
+      			nPos = Position(sCookies, "AWPID")
+      			if nPos > 0 then
+      				
+      				// Extracts the AWP ID
+      				sAWPID = ExtractString(sCookies[[nPos+1 to]], 1, ";")
+      			end
+      		end
+      	end
+      end
+      
+      result sAWPID
+      
+      case Error:
+      ErrorPropagate()
+      result ""
+     type : 458752
+   -
+     name : PageParameterExtract
+     internal_properties : CAAAAAgAAAAO3YsoLGctpaQ8nBFO9Nf4RoeJi8Nl0HuwLR5IUDO0kbx+GJ9DCXcIR52W25nwCF0a+UXUWSPOtp9Jtf+zMtgrY1RTBkswaCZYAkwKrgrD9IB8CfmIOkGygAs9Y5vVK0UOGnOIW+s8/I26m5+GMPeqRW90nlWdmSImbYrdKoXofojwD+g=
+     procedure_id : 1937360812759302514
+     type_code : 15
+     code : |1-
+      // Summary: Extracts in an associative array the list of parameters received by a page
+      // Syntax:
+      //[ <Result> = ] PageParameterExtract ([<sStartsWith> is string])
+      //
+      // Parameters:
+      //	sStartsWith (ANSI string - default value=""): only keep the parameters whose name starts with this value (case insensitive)
+      // Return value:
+      // 	associative array: array of page parameters
+      //// Automatic process of errors:   run the block of code CASE ERROR
+      //
+      
+      Procédure PageParameterExtract( local sStartsWith is string = "" )
+      
+      aaParam is ASSOCIATIVE ARRAY of strings
+      nParam is int = 1
+      while PageParameter(nParam)<>""
+      	sParamName is string = ExtractString(PageParameter(nParam),1,"=")
+      	sParamVal is string = ExtractString(PageParameter(nParam),2,"=")
+      	if sStartsWith~="" _or_ sParamName[~sStartsWith then
+      		aaParam[sParamName] = sParamVal
+      	end
+      	nParam++
+      end
+      
+      result aaParam
+      
+      case Error:
+      ErrorPropagate()
+      DeleteAll(aaParam)
+      result aaParam
+     type : 458752
+   -
+     name : PageParameterEx
+     internal_properties : CAAAAAgAAADTnctBy5EhcvV25ZsBz99aKDERcvjJwMaaCzK6vLzekIo94HH9CpGzD+PS3/99zjAjd6uNvsi9P8FwuRwVrd2cmiIUmqafnmUz5RJ1mfqRUq3dEWX072KMfLcP/NQ3+a3AioM+tUMWe6lcmcsjRy58hZgik6q0dvsgbGexDv3cjtq5BRjoSQiMgPNDv1E2hEj0reyVy/66ZkRaz1OTNeRvSyJ7FQPlP+YmpuX0NCLE5NCnHLJuzG23dNUH3xDpz7DYzmcsDDBZgj+VuYx53TFGgSmQAFlcXKiVmf8fqQQEwoaC
+     procedure_id : 1937360812759368050
+     type_code : 15
+     code : |1-
+      // Summary: Read a parameter passed in command line (with variants and default value)
+      // Syntax:
+      //[ <Result> = ] PageParameterEx (<sParameter> [, <sDefaultValue>])
+      //
+      // Parameters:
+      //	sParameter: <specify the role of sParameter>
+      //	sDefaultValue (default value="#NA#"): <specify the role of sDefaultValue>
+      // Return value:
+      // 	ANSI string: Value of parameter (in lowercase characters)
+      // Automatic process of errors:   run the block of code CASE ERROR
+      //
+      
+      Procédure PageParameterEx(sParameter <useful>, sDefaultValue = ERR_NO_ITEM)
+      
+      sValue 	is string
+      
+      // Default value
+      sValue = sDefaultValue
+      
+      <compile if ConfigurationType=Site>
+      	sValueKey 	is string
+      	sKey 		is string
+      	nSubscript 	is int
+      	
+      	
+      	// If the cache of parameters is empty, load it
+      	if gaaQuery..Occurrence = 0 then
+      		
+      		// Read the incoming parameters
+      		loop
+      			nSubscript ++
+      			
+      			// Retrieves the parameter and its value
+      			sValueKey = NoSpace(PageParameter(nSubscript))
+      			
+      			// If the <nSubscript> parameter exists
+      			if sValueKey <> "" then
+      				// Store it
+      				gaaQuery[ExtractString(sValueKey, 1, "=")] = sValueKey[[PositionOccurrence(sValueKey, "=", 1) + 1 to]]
+      			end
+      			
+      			// As long as there are parameters to read
+      			to do while sValueKey <> ""
+      			
+      		end
+      		
+      		// Read the parameter variants
+      		for each string sKey of sParameter SEPARATED BY ","
+      			
+      			// If the variant was found
+      			if gaaQuery[sKey] <> ERR_NO_ITEM then
+      				
+      				// Read and return the value
+      				//sValue = lower(gaaQuery[sKey])
+      				sValue = gaaQuery[sKey]
+      				break
+      			end
+      end
+      <end>
+      
+      result sValue
+      
+      case Error:
+      ErrorPropagate()
+      result ""
+     type : 458752
+   -
+     name : sGenerateParameterString
+     internal_properties : CAAAAAgAAAAO3YsoLGctpaQ8nBFO9Nf4RoeJi8Nl0HuwLR5IUDO0kbx+GJ9DCXcIR52W25nwCF0a+UXUWSPOtp9Jtf+zMtgrY1RTBkswaCZYAkwKrgrD9IB8CfmIOkGygAs9Y5vVK0UOGnOIW+s8/I26m5+GMPeqRW90nlWdmSImbYrdKoXofojwD+g=
+     procedure_id : 1937360812759433586
+     type_code : 15
+     code : |1-
+      // Summary: Builds the string of page parameters
+      // Syntax:
+      //[ <Result> = ] sGenerateParameterString ()
+      //
+      // Parameters:
+      //	None
+      // Return value:
+      // 	ANSI string: // 	None
+      //// Automatic process of errors:   run the block of code CASE ERROR
+      //
+      
+      Procédure sGenerateParameterString()
+      
+      sStringParameters is string
+      
+      if gaaQuery..Occurrence = 0 then
+      	_PageParameterInitCache()
+      end
+      
+      for each sValue, sKey of gaaQuery
+      	sStringParameters += ["&"] + sKey + "="+sValue
+      end
+      
+      result sStringParameters
+      
+      case Error:
+      ErrorPropagate()
+      result ""
+     type : 458752
+   -
+     name : _PageParameterInitCache
+     internal_properties : CAAAAAgAAAAO3YsoLGctpaQ8nBFO9Nf4RoeJi8Nl0HuwLR5IUDO0kbx+GJ9DCXcIR52W25nwCF0a+UXUWSPOtp9Jtf+zMtgrY1RTBkswaCZYAkwKrgrD9IB8CfmIOkGygAs9Y5vVK0UOGnOIW+s8/I26m5+GMPeqRW90nlWdmSImbYrdKoXofojwD+g=
+     procedure_id : 1937360812759499122
+     type_code : 15
+     code : |1+
+      // Summary: Builds a cache of page parameters
+      // Syntax:
+      //_PageParameterInitCache ()
+      //
+      // Parameters:
+      //	None
+      // Return value:
+      // 	None
+      //// Automatic process of errors:   run the block of code CASE ERROR
+      //
+      
+      Procédure _PageParameterInitCache()
+      
+      nSubscript is int
+      sValueKey is string
+      
+      // Read the incoming parameters
+      loop
+      	nSubscript ++
+      	
+      	// Retrieves the parameter and its value
+      	sValueKey = NoSpace(PageParameter(nSubscript))
+      	
+      	// If the <nSubscript> parameter exists
+      	if sValueKey <> "" then
+      		// Store it
+      		gaaQuery[ExtractString(sValueKey, 1, "=")] = sValueKey[[PositionOccurrence(sValueKey, "=", 1) + 1 to]]
+      end
+      
+      // As long as there are parameters to read
+      to do while sValueKey <> ""
+      
+      case Error:
+      ErrorPropagate()
+     type : 458752
+   -
+     name : CurrentPageAddress
+     internal_properties : CAAAAAgAAAAO3YsoLGctpaQ8nBFO9Nf4RoeJi8Nl0HuwLR5IUDO0kbx+GJ9DCXcIR52W25nwCF0a+UXUWSPOtp9Jtf+zMtgrY1RTBkswaCZYAkwKrgrD9IB8CfmIOkGygAs9Y5vVK0UOGnOIW+s8/I26m5+GMPeqRW90nlWdmSImbYrdKoXofojwD+g=
+     procedure_id : 1937360812759564658
+     type_code : 15
+     code : |1+
+      // Summary: Returns the full address of current page
+      // Syntax:
+      //[ <Result> = ] CurrentPageAddress ()
+      //
+      // Parameters:
+      //	None
+      // Return value:
+      // 	ANSI string: // 	None
+      //// Automatic process of errors:   run the block of code CASE ERROR
+      //
+      
+      Procédure CurrentPageAddress()
+      
+      sPageAddress is string = PageAddress()
+      if Position(sPageAddress,"?")=0 then
+      	sPageAddress += "?"+ReadIdentifierCurrentAWP()
+      else
+      end
+      sPageAddress += "&"+sGenerateParameterString()
+      
+      result sPageAddress
+      
+      case Error:
+      ErrorPropagate()
+      result ""
+     type : 458752
+   -
+     name : SiteParamFile
+     internal_properties : CAAAAAgAAAAO3YsoLGctpaQ8nBFO9Nf4RoeJi8Nl0HuwLR5IUDO0kbx+GJ9DCXcIR52W25nwCF0a+UXUWSPOtp9Jtf+zMtgrY1RTBkswaCZYAkwKrgrD9IB8CfmIOkGygAs9Y5vVK0UOGnOIW+s8/I26m5+GMPeqRW90nlWdmSImbYrdKoXofojwD+g=
+     procedure_id : 1937360812759630194
+     type_code : 15
+     code : |1+
+      // Summary: Returns the path of file of global site parameters
+      // Syntax:
+      //[ <Result> = ] SiteParamFile ()
+      //
+      // Parameters:
+      //	None
+      // Return value:
+      // 	ANSI string: path of file
+      //// Automatic process of errors:   run the block of code CASE ERROR
+      //
+      
+      Procédure SiteParamFile()
+      
+      sParamFilePath is string = CompleteDir(fDataDir())+NAME_SITE_PARAM_FILE
+      
+      result sParamFilePath
+      
+      case Error:
+      ErrorPropagate()
+      result ""
+     type : 458752
+  procedure_templates : []
+  property_templates : []
+ code_parameters :
+  internal_properties : CAAAAAgAAACVGQgYbalU7DKC3oH4ItDrjtcTHXXV/EuH8q0IbhyQlw==
+  original_name : COL_SansNom1
+resources :
+ string_res :
+  identifier : 0x100699fe2323b43c
+  internal_properties : CAAAAAgAAACm76HWfKGWp33VjXInA4cRlqArlgTTA862QGt72W2ld5Y=
+custom_note :
+ internal_properties : CAAAAAgAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ

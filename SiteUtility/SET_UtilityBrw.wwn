@@ -1,0 +1,46 @@
+#To edit and compare internal_properties, use WINDEV integrated tools.
+#Internal properties refer to the properties of controls in windows, reports, etc.
+info :
+ name : SET_UtilityBrw
+ major_version : 28
+ minor_version : 0
+ type : 65539
+ description : ""
+ subtype : 0
+procedure_set :
+ identifier : 0x1ae2e3640625be17
+ internal_properties : CAAAAAgAAABGLu41kG7fjQV3iS4F72qmnKaNh5694reolNKIW0iw
+ code_elements :
+  internal_properties : CAAAAAgAAAB6fJnpz4YUYa4VmpGnZvbRl1CVIlB5+2IdtjGnJdBOMW6Ba2qhh+PICwzxA1OIm9Muz5CXp2AYerSn3fDrW0FQq6MF/g==
+  type_code : 41
+  p_codes :
+   -
+     type : 983040
+     role : N
+   -
+     type : 983042
+     role : N
+  procedures :
+   -
+     name : ToastError_Brw
+     internal_properties : CAAAAAgAAAD+z1FiSo/REW7dl+/ESm9eCekvDQnCWn23bc4ebWjBez+CiRSTr7RLpf3ZMR5RsHZCbsqS7u5iTLbQG9Oj6tcfw0nkiMxVYloiHCG4fKxQs0p8aeKJWUYxHPQ=
+     procedure_id : 1937360808462171671
+     type_code : 15
+     code : |1+
+      Procédure ToastError_Brw( sErrorMessage is string )
+      
+      ToastDisplay(sErrorMessage,toastShort,vaTop,haCenter,PastelRed)
+      
+     type : 458752
+     role : N
+  procedure_templates : []
+  property_templates : []
+ code_parameters :
+  internal_properties : CAAAAAgAAACVGQgYbalU7DKC3oH4ItDrjtcTHXXV/EuH8q0IbhyQlw==
+  original_name : NAV_SansNom1
+resources :
+ string_res :
+  identifier : 0x100699fe236fb45b
+  internal_properties : CAAAAAgAAACm76HWfKGWp33VjXInA4cRlqArlgTTA862QGt72W2ld5Y=
+custom_note :
+ internal_properties : CAAAAAgAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ

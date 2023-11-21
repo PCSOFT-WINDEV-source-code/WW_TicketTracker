@@ -1,0 +1,797 @@
+#To edit and compare internal_properties, use WINDEV integrated tools.
+#Internal properties refer to the properties of controls in windows, reports, etc.
+info :
+ name : disconnection
+ major_version : 28
+ minor_version : 0
+ type : 65538
+ description : ""
+ subtype : 8192
+page :
+ name : disconnection
+ identifier : 0x2a564fdc9787c853
+ internal_properties : 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
+ properties : {}
+ controls :
+  -
+    name : AREA_Header
+    identifier : 0x2a564fdc9788c853
+    internal_properties : CAAAAAgAAABjIPUDpsmCh7RXnvV/c4fsNrVXnbyMTE3SHWpPn9OEOyUSGNgEDwPLq7nyqA4p8pbIzCR4K5DR6a5P/qR76nak7nB9y9aSZGb/bi8VUHDbEYY+RtFoZ8Yab+9GvnwCQZPd2Lav+VAfEHGJIt/nc2lCEmB+W4i9DOrBkyTV6WuM0P1OfBRZQXevnJDwpor+DHO8+Q1rJg29D2s4uMrQ6cklHlqy9yZ7TX/Wxj05jfkEmc+mFxdEbGLT4Z3a9SyTmms2r4Y7rT1Hz3mw4vcZVxEBFLn3cHiRizW+EVDZL3Iiipki+Qh8GLpx5nnBmezGo2cl7oL+Bt4qRTCsM4NxcE4vp+Kq3pMjvPd0sEKFkYdzB9pgr4dwT9XK62bwu4++hSsRq4oYWtLwYvdpNihIrFC2TS4+1k6lNVCipiL/qu0jDe9FoERIQn3r2hKFRffOfdDM5yDguL2Kaz28GUlXzl4Me5QtvsG649Ss8pcFNKDvTaRwJG4oBz8GApysYrSlOmfGRq+01AmuYWUGuwd76tfm4Pt32aiPazyRas4axZde0t/wterai37GEkgDHnCOzzWpnxdSozU/OT+wgh1nDlsBfA7Z5+YwKm6TSHcIJkgBzT6rHgIYeYNu90OyWQkPg6NRzkYVwguZacIp4/yyfb6BUgoKxzNTqSDRPzH7fq+vB1PJzqxeVHUiqUr4wbPeqSl8stewS2FUQMzLbV/CAr1xmcf48/Y20+ygCDkcSdar5ae8dRmUjHIC5EwQ32vkV/sV+WYvZt5V0TnhizbD5kOCDUZbwPY9pdmiyascukuisO/lK2eQoZVcHZ+at0Rtk1Wc4OO4ySNe3rXxNGg/LeBXEoFkuY/E+V/PxUDMlEdXGqH2ONfsoXnc4cKcJFsX/eTc6mijH51a84JhzFeBjel5MgdMkS++OSi6cjmcJ0bsoO4Zui5uso0wHWfcwhewpdGMDM5cwjf//2KEYW4UQYysbXcrqmgE/Yhb6084bEuA4P8Dydls4uypDgW4LuqUB1ZWrZowvyLSv+YB5a8MqEgNZWVRQuMgpEk+koOiqOaBnldEFA+cJapGE7+0UIchBoebflFPJz3hVOXRZVSIqj7f0ehOfaOqD77+k0ArJTJkJOuGeSM7lhk2FQZi0hsuZfeU1MmBuUzUnnKYKN6w9m03YDKfmPKp0PgSVTabGSifDaRsLe5KrRaZzPOWluP4uOysKroXFX1HPOlUmfB69XjnEnFhjYoo1okOFRl36HYZJ8nCXSuXFN5qGXKYmXuLd0npM4VxgtDn2BqZay3HmYYCHyRGuQRnMSAwEnDMdbNWaAd614OaRaCfdZ/Hf6BepxfK6Cf+n+JrEefBZ2ynaW0EtJP91flm02RQyTQfk17zVQ04a5apKMRcF/LixXISYuQGlvE5kIdj8iD5HdBXUeZmWchgAIB4FnAtKmgQ65q0rbNfBqGVOWreL4VoXAm/YTlKK98i5By/RQ/UfPZtyB7poLIV+C9ipNsQTcALO6p9p1uBeBxEdZCo6eXLjAZhdL5zABliBqC0YlcLt2yXjKq1u8EwoBowHw3obXR7thju7TnHEFfmy5+/xGwzq6IIfgAMtM2se30By6G6Ok4zvSJTh/RLe+all/EU/jHrgw820HcG3UPRYLNuYCHJEv8XxzpVPYqdEGwgxJS2KQI4nl/KwUvi6e9mLw2Zyi9L/LTfjqgWvUmCPHhY+qt3tnGv5cTfDZnnt1M60oxvZnBiyhsaXmAU/23ma8rhT8ck1lqrOb4UovdZ3euafWFplc2UY8XojGulTTOKmE6lgt4KUzYSBvOPGJ1WVDyhRLLywBnx9JEwrwTv1WrWJxyVi+lJZGWRmeZtQIfKWnEtgghHYuSpguA88WglDnIvvu6Brpv5LKeTIa2VEpyxuw==
+    properties :
+     width : 980
+     height : 49
+    controls :
+     -
+       name : AREA_Header_Main
+       identifier : 0x2a564fdc9789c853
+       internal_properties : CAAAAAgAAAALKjxq0EvFKNkJpfUhXrPBQY+PBNNEr/FQZSgpTasxl0QsD1eakKdUyiJmEiqCKY9pQLmVBlYZZcQkwiUxC+9F5rWG2i76wCYmUV5Po0zsQMnyTNyoxgm+2g5GfnRNtV08Svd5ivBnH4/ATbCxGNam280P9v9JJLYfIGEiMfbLMzK5P98t4f4lhhmEb840VKpBP6vJdRs44WMqW/5uqz//mVzDyCYvK7Wn5+CYyf+J+yQQfK5P9IiMtvyZvyoBsMbl6Fjz6K9Qg92mS3ntBkzBd3eTJx6pMODPbzFJ/H9x9oUIR7ZN9WLHotEkA33Y1xPA7abICEf48KwU+ETHNLV+ghORFEuioww2qvT/unxNpWRKk4Bl5P7agMLJN588JLExDTf+QfuZMEAsPA/bzmiBKsA7+3YuoCv0+Ly78NUS+Wc/ZedlLtCfTMNq/22rgBiWTECZjMh/g1f2YzlSaBiXay8wWb9Mm04m+UG0I7sBhP/k5+vzj4QeFwPE8XZKs5Pz0SRMc0RpJp8R7yWV8EaTrL+YKaLb7+EBKyIwmVpzTQ+0sJKvnu6h86IW5vsE608Rc4gCqlTYeAlOmZA8JG/M6+H7Ei7Fkx6eu5zAA3Wiy71rlyKOTNyReMO6DKKcZEhReZd0BIFDqpHCzQlhI7KBYq3VHvhj1603kGpY7lSyMAdtxHohGxWxntkf6u0xTnh6wJwPu6TXKk+8z74PxHPelzD3U2Kj9RcMmlzIZMqbNGRTiB1tS9Cw5FCGeXISIeUOmBztqAqvpboRwqC93MeJzNmG9Wb0LikbeHr/IZBUhqpa/2+B7yunRs1e4N6dFANTBVbPEROasZeSbAuhso4czEimskiBKp4VQR5iFsLoND51xLAmRoIVeMsAC/cbGbQ6dOfJaDCkqR62gahFcOpDprm3nzBJmz+maxAGa3fItQPW0WjfdShhORgsc3WQF+++unwkVHk8yL+Z4us3jR6HTTv50IMvSKUccR8g9vQA1PtOf3M+YBhcBjlOqEuWfbgmupqTe4lVu0099IZWaWQVOHbbZRiX9Hrrd+KFRD3MTg37bP5lNn2XIOswPBDpLPtaGX5bEZR/oZ92tap1umxKROrhqMAlvLaaayVZORdJA86oN6ncxk60/RDF53PLHl8hNTl28P5utvBOt/iW/EKsQo6C5MUy0Hz6NrlqPTbQ6LdvlYT+X8aSu+99tfkhgErOvSEEpB0o/IM2y3kjuHEpl/O2Bfxohvrf9OWgG7NZzyVe71oEeeO/OFlYxB0MEkpUT3skHcvYsHmAVv0OaVjHlNW7XGDDIVfcDvaWYkoGNS00AkvvjcuSrqUAnMUlHZ96fjl4GKCK7DCNgYjOeeEB3xopZld162vpimIJwrc3jprzOmwtake9f7iELaS7F5udrN6b1k5c0H9+MM54R0iCskZ/11Fo1geO3QaDe10xXosdPQSBmJN8qZTOtnjjEO+yeGnJxWyi/N4NHdtqeYfYFVzdWWhdJ3Xr5tROZYKyCQRex5lXEHbGU4tjc6aKqn3MIq5HRePng2e54du34Wapti2uFSefWJAOeKSTJUZ5d8m8GRNkcabKkrROqdA++5ZGFV7yTUZNHZ4DhpKI67zjfo5O2DpDD2dSHV/grKU3i5sWD9OjRxU2iWTVOaH6G4/4R6dTUzgPQETy91OAU3ffrcoStRigCc95XHyxchNJfgsguVbekcFRBLOO/ksYSIyrwiN0WK34bhivvn2XTOauNQix7VEmYHo6WcTvmGu6swJ5S7PiiB9zDYbHQbGaSuy2OJP3U9MYJ20T9bTXsoFujdSvSoowqueK9VEJWh+qPgXWVjLB1O0JQG6+CghUQstDiQwf4NVK/HvOtsMxc6YaddyqaY9EsYCRf64CozaloFsiuITEl1DfOQ6bEbAjLp+auSJjLk23Mh1jE86vWAq8g3gWzVWEoMB7ZE/xeB8=
+       properties :
+        width : 980
+        height : 49
+       controls :
+        -
+          name : IMG_Logo
+          identifier : 0x2a564fdc978ac853
+          internal_properties : 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
+          properties :
+           x : 20
+           y : 8
+           width : 76
+           height : 33
+          type : 22
+          code_elements :
+           internal_properties : CAAAAAgAAABjG4KkAtKUqTIQqT+Hwra2UUUAsXUx9qho9bXoXO3hd2CKM9XKAKcb32VcOG6skbFgm/r45Mvc/8OqD4FL3cOT2GiB8s1SiWON6JTm2zu/A/9D7IQaK8n90hRid+/W
+           type_code : 57
+           alias : M31
+           p_codes :
+            -
+              type : 851999
+              role : N
+            -
+              type : 851998
+              role : N
+            -
+              type : 851984
+              enabled : false
+            -
+              type : 1310736
+              enabled : false
+            -
+              type : 852149
+              role : N
+              enabled : false
+            -
+              type : 852178
+              role : N
+              enabled : false
+            -
+              type : 852179
+              role : N
+              enabled : false
+            -
+              type : 852180
+              role : N
+              enabled : false
+        -
+          name : CELL_Connection
+          identifier : 0x2a564fdc978bc853
+          internal_properties : CAAAAAgAAABf8ZEmgKKzOEZR9GCSoWK0VfNnyH91xcyiOo+Fj4PDDnHhfIqPNroIHrl/5c34j5Xvlxv+a95w34IyATGKEra+lTvddn9BbXqsogUkN6ccQ8CbFFBMXINifR/VfgeO+Wv/sr3/otW9DVdYsIQxyQMfGVT5uZ11yGwfIC1xG+SaBHzmZpX8BJ0qFOGkQkJvPyOA+J+Qq2ZT4gOmNZhZEXtu6OLsi+PeNF07UnM3q1rH2fMQZ51gpPt8bJhrls/nrFQ1i6xKdH9U2HIwQRs9EPuq5oQ8snKbtjnGgRppEdzep3S8qaOlzMMQ1OusFEZesngldcUeQ2Qpv01y6yuSwXo3fSGaWp3KwXoE38grCrEq3VSDlMCOp48DszvifENA6PqJnGwbIwnD0cHvZ7txdj6isU6Y5ipfMA0dmD006f6gVq2p5yuTmN7wq0LmZcTfnKJayzwW5zqMR9chXsB5eeGiqhfgd+ETZHQeTMPvaGz56qCzzvfRhrX7u4wKRDix7rXlvJhGt06Z/XY7hE8SDVpFdGnpfrzoOyx4iQ0uOCdnuwyQ/WyUjPd6O7b+sxK865rI+dOvjhgXPSDqYiSwbdsorvITDmieQlEFXHQ8336bO7hy1VoiM+gUnpIpY2Z4Wo/ZwYeTn67C/fI19P2k84tVUvHtcbR4Q1e0SM0r4SUD/m3pEnbucW1r72lDTG4ENdP7ldh6+SNVZy2rmBC/3hTRJXzz/4HmEdCY6bEhMhuTrGExuXNxtGdYdSiVYxKmXFKmOSYMUUCGnvBoCfNhK2yhuO5t4A579WQ1oanlyUYdWBwowsmvHzAuckUhVyfBpYUwZJNf2WDFbr1EeO5+hsuwTf27iwdirRs3vi+kOJhYN43/SzV1Ehjvf4RgDZZM+3mPWU3jO8zptEk0zM1+QmhhYxH3novZ3uodD8hx1SFWzK/3bFsBIE1voNbeeCOaKrlBCVYfnbKzmwd8K6Ml0PowZ9TzoedsLs3vUK6WmTjMStUB856bolLrKWB8g06GKBUYT/HjcQsEJlsp5uPO0jGgz3Cr/2K2qcVvqsfm66JUBZ/yJpbRXuMvD2q8MnTvv08MGE5GSulWK90qKCa9YJwXb8wSR3161YBO+qyo8EAiWKw3xYIotPifjLTkwpTar100LCtT2jiutrWcvSoNFgSjw6QkmVr9UgO6lrcxaRxDlLHlniO64ds9k/lJH5qWHFu7nxD5Ff9JnG+L27SydL33IAB4AzQVRZg0xN/G8edAZ0DLtseAwYvh82zG3hoU1Q80ZrEPTb574Czzpo0FLFQ4nG8y4rxe5R2yWUiqg8nF10MeQ7cSYvQ5d0pVmWbMVVq1CczeYFP74nNzucCebCcjh1vD5359Lx8wKxb6+RyEOGd3Fjj9WTFJ9c6pATs8M5oOknvC4zkhrIgJ+SwRfxdOIY5EO/KYm9nQzgBlrlPD3hymSfbBLq7FLdQOwDXhLidW8CUiUj4H517//G1pgFA3fxrVWrmg+RWSSAqKQu/ZrEMEUI0Ms5rqp/4zk+/fImUQQ9k68uFVbzajRMUXWvOxNVpDyXWnGJLx2aAGG5hipZFEgD9Lh2xFUV5dVKFydSE7+0EazNfTTInUzpJJhR+hrIA/98ts3u7XFPbolnHgt6sXZXHbgcoFCmyJz72za/b8DsRJfnD5umzz0Men3O/8q/BCzaANBdOAf/eyFTKGZ0gPKtoyWaB8nRt3GwTIj6A3RHenzM840gs9J6rL7BKQItWAOMfMqliy6uuOD9QE09JvXA7bu6DKkEaJMFNNT4etWaDXisGh/3Es5CVTCw/rOzHdSh6BV+BQ3Ui2h+POEhnMhzHfZzjLJxTk198NHYexKzEDAM0h/rRD0oOAL8kNX5pH3ebu/JzCHXkZOtdI9D63lomARotdvmB4bPsYhzcyySIYXKFMB0H/f65/QPxO0SrG8ypnljcr2sMWrMs=
+          properties :
+           x : 753
+           y : 10
+           width : 207
+           height : 26
+          controls :
+           -
+             name : RTA_Connection1
+             identifier : 0x2a564fdc978cc853
+             internal_properties : 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
+             properties :
+              width : 207
+              height : 24
+             controls :
+              -
+                name : LINK_Connection
+                identifier : 0x2a564fdc978dc853
+                internal_properties : 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
+                properties :
+                 x : -753
+                 y : -10
+                type : 16
+                code_elements :
+                 internal_properties : CAAAAAgAAAAYgG/7V1cpojsRqD6GO7nJ0saBMMqycynpNneymplBL1Rmb3n4MEeHd92+0ky40ZJZpDPr8fghSuhv3vqUvs4oTeWG8UzTCOAOaRVlWrw8/vhE7YMZNNCCV2k3Woor
+                 type_code : 47
+                 alias : M14
+                 p_codes :
+                  -
+                    type : 851998
+                    role : N
+                  -
+                    internal_properties : CAAAAAgAAABvhQpwjKu/fxiiCXBy5ZViT6d7CKKTbCoGRYEqD7zf6STCDmX0Ijc4NTAVfs8EoOT8iblTBicypKDvEPbLwEogmC7B7dpCulq6bJYFrQ4sns88rKCOCQ==
+                    type : 851984
+                  -
+                    type : 1310736
+                    enabled : false
+                  -
+                    type : 852149
+                    role : N
+                    enabled : false
+             type : 109
+             code_elements :
+              internal_properties : CAAAAAgAAACq0tENVSkfNK2reoz4lStDXEADqmD8sevb4H9WDsEJ//Seq5XkMPsb3y1uPmCg+RzPCnlhl2Y3oJb97MySlPTSi9PEDyIFRp7I04/j2D6ycEoWPzFvnkZ4WWvJyDid
+              type_code : 132
+              alias : M13
+              p_codes :
+               -
+                 type : 851998
+                 role : N
+               -
+                 type : 852005
+                 role : N
+               -
+                 internal_properties : CAAAAAgAAAAaO3IFoatk/0qci0nlGCG6Hz2428Irop3mdvABfOa+/jPzFBO1EzovvfHSFQ0TBSAqk7kf3WONLgZhY5FLK4lsvPaZWQVEe66QVuOKnx/bVtOwKEb/d/sK
+                 type : 852227
+               -
+                 type : 1310979
+                 enabled : false
+               -
+                 type : 852228
+                 role : N
+           -
+             name : RTA_Connection
+             identifier : 0x2a564fdc978ec853
+             internal_properties : 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
+             properties :
+              width : 207
+              height : 26
+             controls :
+              -
+                name : LINK_My_profile
+                identifier : 0x2a564fdc978fc853
+                internal_properties : CAAAAAgAAADVVfrAXf/WWu0QWhVkJvlqu1xge0Lc9HVAKhKp8qwJXTZlvLIE5VHHQSSIBWySfsiAyTogQuX4Q4aKhGWTocYoECYXo4yahGYfMVX1oiduiq3AHZKKqhKn2BWE3UE5ZmGhqezQNE5L/FIFzZKDyiSywyQzFE8aiKuV132i+XkiMuhsZvyXIphqGhF8nPc4CQdWXXKzg0AKoU2LjL6Tjp3o//g9BG4NLcT1yZQutc9WxJhkEZNkWvOu4bbUnOqF4LPFwMltH8gB7k3VE60cpoU5+gBhPDwzMHPKuHaK5DQMp4s/GlOKpXsHJCKjkvYmOh4O58yThvNAvFntg0WXISvcAx0RGUMdofJ8ZY0OfxBu84XRSKwc/F+Mn9QV5fikfZ5NbZ6ll11KW36ctHSBwk2UBvHdldBziqvGXx+s2ygG0kCxSi9VK2rD8N9L1Q3zdlVmlcDaAlH6qQW3O7FIUIwDEyB3dh2qHF2XaH6y7kyclXYLZs+1aD2QYKsSH0xG06xsJrfR5t8oSOJf5AVMlELtjKvVlf7oHIgAQPlwK8LgfvJ8Mv66o2koK++MrB8lQwVaV2q64uiNHlZPmsm0nrPQeYcNgZs7hXjNppBQmxF2WlEkhx3y6oONEcdLD08IokMaioYLM7K4/6gxuzEjGQOkJu107Rz5khDZIP0N29e1JC9d5j3QrbQmhWsVbDcVSzO3bXjV3SuHOD11eq5ksQg4nLBPDoL4V6EeD7B/GeKuzXyMrT+jdb79AbUEfO38xkuiGvDMumpJ9v+KPUzECilTyQQgeV0K62uZYbBtJuUR4dY9yzZmi2Wlye6kK1V1qTuIZxBkkEjDXc5PT7O3/tvl0kycI1uxne4Fgla0TsY/QfbP1mYLvImc9Bwn7YRpur+9eSIKnHjqkEN+t+NJsSZ4kezQVbnrq95N60UOA59BMC9NqBhfRoPNbWK9kf5GAEGn5QCPd9lcK5UW9HaporaDcioNoDmx+Wuzl+rmoh9VT8M1A9/eqjdcDbUA/5eIEYzWyBQ7UC9etjnf3vNPOz7Dy0ycH0c1xgthdG8nP9LzXFAwianwv6hNRCYK9eFbolMOYiMzkj+hJTMK8/8s+mMMCZm3tK7noa+Fb4vCHo94x2HM0c2Dy/56DErgsFp+/Yfa2Qp2d5SaFoUTwduODXL2SCtZpEVxHOjGOm5NiopleREjc5LNpBVCSYx54ZcvCFMOoglxTt+2Kr1EzqoKMwtlNBR4nfGOWszvsGpql+siQto9tcSMinoro5DoA9RoN9m4RG+liPgMGoIk+iM4irWO+9V7UxLKcYfFEawGRc01qSASln3Sk/szsJtLuhh+WmIuZPomAO4P1jYxkvoOB9hveTF3piNUo4OzCEOih9OjIiqt1sct5j21z2m45uCLonavemF/eAKXRPxdQ801PxPRuQAkGSwL1JLQEkuQGZocJzagKSoWWBBTHoaoWEZxIg4dIPxs7Z3tUd3PRTWVwqNpEYER2dz3ZBKy+aasvMv9rlL8+4ECuepYkNW1Y+gPc66Af4XhyLY5Su2vjwq952yVa4PmuNyjCid3CuAEOg4x+kB/ayRYYeByK5VmmOxP5ig1OemlfEpXK9RhCkHCwsmZOGm1w6Fkugq2L2XrMz7Ko5B1ongloqnYfK9KmhcHd2fPFgs80/gSUaKF+/nNTBCNLCKPE1GI1zGGEDkbXeeH0WC9qeobEIRxKNwxTpMs9GBOIY8+chjbaPgXzEiUnf5PWNGOEcUmaBtPsRIsMJWTjcDLDgOiPz3pE/q0F9TOYchviJ+Ftbuc8IEhtkulynHpuJDml60lpTloqPgunPQS89JIzI0+hOL1guR7JC/6PEAHaS2xvVniFEO9aM/qrqzHHX7fLVDOficzTmQ38NM3O7Ao+Ll+Es5B0oCK/YX28ienicXGCEajmKzqD5/M6RIEAwRrl2IJT6gO9LLOwXnmr0NHDrD07MtJhHAiPOWrNL81omLGtd0EWLY/c6DC/pYIbH6kW1QPlDwN/TifcpOt6p29zWeN+2TY7hmI11AB8ZOVByYZzh+OZa95DNNLMfND15xiwh5zrkzp2pnB/L29/WCKIFiz/ol8G5KB2mX40+ChrKyABTPSzeITZZ26rs2N/hru0//TeW+zxb7zI8zFyqjU4CbaeVG7CUksRK1ZDkYTR5wMGY6669tKAWlsiWLThksqpwhm8eMZAGqR3vZERaRMWBaGUFH3FscRyNb1qS3uyFEierz2yiL//1hbjQS8eDaGqzmfp7983oexKAbjgguSP2YtBckv5DqI3ohvx3mkjOwyMf32wVcK0Lp+OdGcUWUql6oqxuI4/QZ6TKDBIN8vXKRz2sgR+MTCXSIz1YUVJ1mo1zAUMeRzSCMA5StncktQxwaKd08tUIwW1i+/Z74aamermhK0+3Kp8WUX7Va8l+t5/Hs2dPUFv0RBT8EY6oXRuLW7bm4YzMNTVPTZZkI/y5PQTNSXrawJUnwu7KcCUMgz/s/Ij1d4F8dZFh+4i50EsyKGzpp23fo3PEmQKNEM0WxxZvXnPnCnbLnZVyhuA1TwDunZwbTvv7t42RqnlT002b2y/U8kJtsRxv6V4wD1s8IujllMjNmCoB+jd9KQFRo1aNcm3hGDJczllbxkoryO9lp8W+mAdBQmxCfB8OcTg27z5kV6KzFCY39VjV4qCSUdMdtHfkwJtGiJs8fYsqtX9740ELbP6P9E6vv/k4aqgq+sFF4Lhue0WNLTF0IRTpxwLbGY//c+PqPgx6kRzpqEjsqR
+                properties :
+                 x : -753
+                 y : -10
+                type : 16
+                code_elements :
+                 internal_properties : CAAAAAgAAADryVyHqSbdP2VWrvIsjgVGyu6NZICA2RunesLtzP5kHcv5H6PA5EKO25rloBvFhPSm37+vPiaBWbYdPJ5rglzhY7BSQ2lDuT6MugZCOvKeXfFx5neh+EidKgtlT7aJatCovTj9FYaYB9EcDtQw
+                 type_code : 47
+                 alias : M5
+                 p_codes :
+                  -
+                    internal_properties : CAAAAAgAAABQHwz6hz1+mMM+M65SN2x/m0CBvZSFBC6Zg7djFc+2D/co/LmNTVdPbnpbebWi7xQXAO//o61V1N8wgk3/gOObSLOax4r+0/BlSSKAJaAJ/Z5ldJ1VvUULR10PnlxPDgGyeSs/xu16g8ApwQ==
+                    code : |1+
+                     
+                     aaParam is ASSOCIATIVE ARRAY of string = [ ["urlfrom", gsCurrentURL] ]
+                     
+                     LINK_My_profile..URL = BuildURL(PageAddress(profile),aaParam,URL_ENCODE_PARAM_VAL)
+                    type : 851980
+                  -
+                    type : 851998
+                    role : N
+                  -
+                    type : 851984
+                    enabled : false
+                  -
+                    type : 1310736
+                    enabled : false
+                  -
+                    type : 852149
+                    role : N
+                    enabled : false
+              -
+                name : LINK_Disconnection
+                identifier : 0x2a564fdc9790c853
+                internal_properties : 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
+                properties :
+                 x : -753
+                 y : -10
+                type : 16
+                code_elements :
+                 internal_properties : CAAAAAgAAAD1azeoRfpFRmv33SlScrsoG3/LP6h9HeUzLtQ56kLH2qHDZQiZsPmMyjR3+ewKPBtIMG0JOkKbdgBoHiqw3J56ZUjFOSBS1aLY0oR4O2FxsZrzt7T9Ctb3xX6OWuo8o5NQlQhn0BD1jocS0bDqK/l4
+                 type_code : 47
+                 alias : M8
+                 p_codes :
+                  -
+                    type : 851998
+                    role : N
+                  -
+                    internal_properties : CAAAAAgAAABvhQpwjKu/fxiiCXBy5ZViT6d7CKKTbCoGRYEqD7zf6STCDmX0Ijc4NTAVfs8EoOT8iblTBicypKDvEPbLwEogmC7B7dpCulq6bJYFrQ4sns88rKCOCQ==
+                    type : 851984
+                  -
+                    type : 1310736
+                    enabled : false
+                  -
+                    type : 852149
+                    role : N
+                    enabled : false
+             type : 109
+             code_elements :
+              internal_properties : CAAAAAgAAACq0tENVSkfNK2reoz4lStDXEADqmD8sevb4H9WDsEJ//Seq5XkMPsb3y1uPmCg+RzPCnlhl2Y3oJb97MySlPTSi9PEDyIFRp7I04/j2D6ycEoWPzFvnkZ4WWvJyDid
+              type_code : 132
+              alias : M9
+              p_codes :
+               -
+                 type : 851998
+                 role : N
+               -
+                 type : 852005
+                 role : N
+               -
+                 internal_properties : CAAAAAgAAAAaO3IFoatk/0qci0nlGCG6Hz2428Irop3mdvABfOa+/jPzFBO1EzovvfHSFQ0TBSAqk7kf3WONLgZhY5FLK4lsvPaZWQVEe66QVuOKnx/bVtOwKEb/d/sK
+                 type : 852227
+               -
+                 type : 1310979
+                 enabled : false
+               -
+                 type : 852228
+                 role : N
+          type : 39
+          code_elements :
+           internal_properties : CAAAAAgAAAAE5tNsXA1m2MuHHBjZFWBuEPqNrB8M+mbZj3XYoxyow9yG2RIozFujKcVCpvEEWnLeS+OZ+4sTq7DNaavSJD/+fliSgMgy6MwYe6nrsSRdE8ciORKFgQVtV9oXfIO9b/w=
+           type_code : 60
+           alias : M11
+           p_codes :
+            -
+              code : |1+
+               if COL_ManageAccount.bIsConnected() then
+               	MySelf..Plane = 1
+               	IMG_Logo..URL = BuildSimpleURL(PageAddress(dashboard))
+               else
+               	MySelf..Plane = 2
+               	IMG_Logo..URL = BuildSimpleURL(PageAddress(connection))
+               end
+              type : 851980
+            -
+              type : 851998
+              role : N
+            -
+              type : 852005
+              role : N
+            -
+              type : 852227
+              enabled : false
+            -
+              type : 1310979
+              enabled : false
+            -
+              type : 852228
+              role : N
+              enabled : false
+       type : 84
+       code_elements :
+        internal_properties : CAAAAAgAAAD9ZeINg+BVbesDdolHo49VpsYWp+cXuuaEGKzGblB2XcgoE3Dppkh62fm/CoLySj7VUk4lYEg5wu8CpjocymdbJcNkBL3YrGKAn9NjztIJBeCP9jf5K7OVexPGluACExxCoEQQL/MEdxcP
+        type_code : 124
+        alias : M6
+        p_codes :
+         -
+           type : 851998
+           role : N
+         -
+           type : 852005
+           role : N
+         -
+           type : 852227
+           enabled : false
+         -
+           type : 1310979
+           enabled : false
+         -
+           type : 852228
+           role : N
+           enabled : false
+         -
+           type : 852217
+           role : N
+           enabled : false
+    type : 84
+    code_elements :
+     internal_properties : CAAAAAgAAAC7I7rsSgp8EUq4IUc/Wl6u+d1oCQ3ZrsDQrcWYzH0xtzBKE3U6YEe771V8+I4MUUnoIyLwHJOEJ2sSZxnTVasLQBCJymX6MYvlsOxOQ6PXG5fbdAyCgyFVekwqryeO
+     type_code : 124
+     alias : M1
+     p_codes :
+      -
+        type : 851998
+        role : N
+      -
+        type : 852005
+        role : N
+      -
+        type : 852227
+        enabled : false
+      -
+        type : 1310979
+        enabled : false
+      -
+        type : 852228
+        role : N
+        enabled : false
+      -
+        type : 852217
+        role : N
+        enabled : false
+  -
+    name : AREA_Wrap
+    identifier : 0x2a564fdc9791c853
+    internal_properties : CAAAAAgAAAA98xHp22N5Yn5dlI5NVOiqhrJ0Dqp9nSQLkEoqS3FRg8HS9xv8dnWA2pvVc9vmIn5zGcF501FIl0FI3fJPiTMUeQONy0AVxZusxaXafnNyPwC6EWItE2sHIu831RhY8JNQStXoFFkXViaz9vzyN0hEpH6K/dE8g7LLxIoyba0+A+5RdBJ4BjpmAFzbVf64WIJRpCGqi11kMx6peHniGYYmlhL2qc3L66ZxnJFTwdEBezWeIy7SI2bBaI0zlKXfyFnqS6jMNxhbDgNW0ysK6qU96ulqDsfwalah/x5GdA2nqDA1rsfbiu1pktcEG+Pfr0HaSGLPD10NrnWsZpl7ldJZjPqPyzP7q/CuOSEFH8zk+VIPBgDucn3kNa/BtyB8poZ/E8wC2C8igXLrtU76P243kIpvPsIYU5sphtosxvl61YGu+MWL9E/5KiCUf+BVYN+nQ+wYs+cCk34bhtQ+E6zZJS3pphrvRX25Y8v86ewB+cfiOkURnwt8KPZPyrW7ng4pOBnythQ/ecGZUDSDKESf+2s0Cp7l0OV8pzVjQOg2Y2wDNL/Jt1JYJPJ8LQoT+dSZOT5DyjqRRKE9e+U/pSVdYW5Ku9uECxPVW0aQsudFNKUZyOW9s/lKqRSfbgIHCfb8hWNcdnY2RGMW58TmivINvvZu5Gp+WxR/8GFHxZU4kuAwjLJ2PEpQTROita27EZPRVoRIk6jy/xwnuzYDwbRzaiMPLUz8lwbMPP8u/Crzf6f8pHxaMkmmilQoOCSq4bZxFaUteDdBeurzbAi4WtjJBNyPH4ZuqIUvPpYM5pq0ede9EaClPWmfOj7CoGVZwa/dEMBs2YaMkBW3MqE9FYYIoTi8LMa8bZsDdDdaaksmFU2bXBOg6HWDbAqP9fcwNN2tFcm0E83QAFs4tuPNpb+1iJhgQ+H03YjKUDAHwdfdR0V4byTBM0GkgwXSubJqHWNI2iZEMPbO2xxOOzwg3rtf0A41Qug28ixr60X92ClMI4twESXiMmrxV+zqVEYZA/zn1qlJAWn7dsdzkacQfWcII+LTV92zGQDMI/YGrtnyrNu+LT2nb9ya1edIBxV4Fdg/9ER+ikQgYqExkoWRagvDMw2D9AjPUQ6V1ma6TEBtfy7I5BIWjA9vbMO21LzClk1dd9iNe2iEnHpxUP5Sx5MiEDxtucnydOuqsW2loBEfWUaiuydbfVwZHrwr0ZxCnNKpXwfxSGL25wLQ/Sh6eDVkMgIG6or9orvE0r+fw3fGNoxCM9FyDbZy0VhaqcXMM6+gZDeYaUxM13E3U+3D8PD+aji2m2qMUqJg6+SIxc6dRLtw5VSHO5xyPSXR0IX0ijGV7I+2iLOH7FJwheTODJTH65R8gwzPNBIC58AXx+ZVyYq5y4/oiVEmSIcxow8V0l/WTyMW25B8ez4jZW9atRykCwgnjl2d02N3TB6EFLOP9vtjL08LuVVtfMnD2MnSkErxHRPz8K1VX70aBo6ERXcr+ensCta1T1zOx4l0Xflp6gGHfNvfwWhRDhHk0/DYyP244F8HD3F6C64cv8GSq1qEd79ksTj0Qsgbn9kmU1G9qf9jyUj3whqIGHBZkr17T2cMWXkexavSuXCzOSH1hJccbn3EnMddTT5AgObAakSfYxzCKeCdacOmpnTMIQLZCsjJCsL1JO3hzJaxC9AcINAqgtpn0+ULalXAXskXlkqJ/U7yURTy8/rqmDQ+VdbxMniAYHkUgPtwIdx9MGcVZXmCUW8p+njUPpBivtn9xIPY2AUGsaAVZitmGekniZ/bSYO3M5BjT5fuGcHI/MCrlDLYeDc7CaZg92sdaSUjtpAuauwfKHm10v7mz7t6wANgqatgghX3UbPxcsULIv2IHKysWpJ/DnXja2lhuQShXP0TLC0=
+    properties :
+     y : 49
+     width : 980
+     height : 703
+    controls :
+     -
+       name : AREA_Section
+       identifier : 0x2a564fdc9792c853
+       internal_properties : CAAAAAgAAACLgAkTMfjZ8D0tKL9izFspSLoCjyhDcuhWZTSXHaEloVzpOJz1SBKF/y7kLeRqwp8NxhzQQGQZ2Ufvanuh0lMIWjrodaOkIqJpLN+QccrqbqSUMn1d+aFkPK6+i9ZzXx1j+lhpfRNgNe8MRM5pk6hq04/CU8oldcWlYhCRFU3ZtSab3+rmeBImIbyisXeYZJdlxVZFLxn2iU2nPWatX8sz7gsu+J0Gme0s9E59534qbvRDSqY2kPST6IBVGJL9qoFrI7AuudXAdv5Ht9xc7hCyRgEK5Zo0PxdO6n+RF1s67lvliz2qQNBkWCG/LzL/d7fEWiaMcfgbH9VdPVqHEY3TMGu8djg/3r2J2cneR4bwFXBpXPO9rw5Bz7bt5E5BONnVd58C/0Zd/ZryRYYe6fCWPM61lvY+8os9eo+sMeC2QDNzi+rhwdPpc6YJUyBhW+2Bnr23/U2QxaUgpUD0Kub1tON3TkyRF1OYfrZZmqeac0+Jojf9Mku+wuC0utGDPIEo1MQGO80DXDSkyEJjGPxW5f0oK3NGrUZRW8OcZYD5oi4eNJm9RJKe5A7lwcre/vllKAJrOjT6MScR5dWgD4LHv4S589fYhdMnSYSnrwd9/Z8MMofrnBHjj+p1jha0O5ka5BcaCF5ilVh/Di5Gs5leQDeyJ85yB4CN+ZLllCTuDJx4n/yycGFyAqe+VS/Rp+5EGi98NB/t13QIEND1HytGfG1OgCxXESUv+Ai67DO8dqRVqIOEluEJCYYg/EYUZSYHpov6N5FipZFMvvl1kWgaibpOG9nA40AgSr1JjyF+WZfjUV1cQMK3C/JAWomtHhKOBvTRJIHYR1p1Uw0uqv2lP0/tSdgOZdE2nGFw9fsp0J4IAh9dNv91XcX0Op0M7rMI57fwiBjPtklM7YQIDIflGFyH2uHMEvsdTKJVMrX8nabHMBuSs7Dx+DCnYtOd2lj7WDGUCbx4/bkDc0LcclkrN9JgUv8QRaBbgoe3Ci8mIfhCvud7JGNVbxBIScxio6y8Blr0FdkFuArUQnlrY62w/OKxkMRcAjLIRZv0kTxVSF0/9QAViNEk3czK5+zR/NJo7T8MBvQq0gDmyck84wBqZN230an9AqM4whDPowxJx0hrI5Un6svrOORfx+YqtZMlxAiVEZXfDzrRpA6NodddxoJFo6nkmEoCQITvZKDGbVFuOI+PrCemMaVL5mupZIOF223/f/O1GZoFABKlU6XdHCrdjhXaef0gXTzj7+0Q11Ab/+iRiFbHCMV84o5X/RcuoFCoCsMwNksouaS3e18/HRLZUZ53vmEvOxCX1K7h4gaIvlHEiklnoIUiyagU1BTqdzc5wl/IvhdGCHNdVTJ+fe0vLn5+eFFWa5mrBEb2ro1/Pqfgc5XQ0OOlPg+QcfaXnSlmFLcz960Q9y14WRwCKyZdLx2phwKXR0OSYWvI3Gad5XleF2bcccasZySUH4Qt9lxco4HEiddC+HuGJuMyv1YCofvckjDGgMQIYLO8IqtgCCXAX79A9NkxBihIkRkD6RhaGSPbhnX4MaDWo7m0nf+gqEOpkvPO4To8Qx61w/K0IcoaMvQkv05rXaS+zVnkvcmJ0wKlshDCBvlDR9b2KOMza30SB8O/+tAHHqql86eMxjrENw4B/u56EeFKxux4YqQgn8/xWD0ztQzbs1zCooo6w8v81CX4MeOWt+0EGO5fLq3hqniJJZrsWcQSBrhhWTH9ZnKiXYUuWuXPOOmOVxnDkvQ14RAF1Q7FWLtP/9I63a7Y1DU8/CaeQpdd1DVvXY4BykCB90RxgexxPFdt5bsqKCPmKpFQPAn3ETa/Dd264Uq5G92H6iZwEGYx5ik4FsYltMyIdgVFIKvE1VZXg1GPAV/0srOfx5ZBUtRgiDSko1EWNcX+L21B4t1fuJRULGSKzjDBX3V6gg==
+       properties :
+        width : 980
+        height : 703
+       controls :
+        -
+          name : RTA_You_have_been_disconnected
+          identifier : 0x2a564fdc9793c853
+          internal_properties : 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
+          properties :
+           x : 204
+           y : 93
+           width : 572
+           height : 126
+          controls :
+           -
+             name : LINK_Home
+             identifier : 0x2a564fdc9794c853
+             internal_properties : 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
+             properties :
+              x : -204
+              y : -142
+             type : 16
+             code_elements :
+              type_code : 47
+              alias : A2
+              p_codes :
+               -
+                 type : 851998
+                 role : N
+               -
+                 type : 851984
+                 enabled : false
+               -
+                 type : 1310736
+                 enabled : false
+               -
+                 type : 852149
+                 role : N
+                 enabled : false
+          type : 109
+          code_elements :
+           type_code : 132
+           alias : A1
+           p_codes :
+            -
+              type : 851998
+              role : N
+            -
+              type : 852005
+              role : N
+            -
+              internal_properties : CAAAAAgAAAAaO3IFoatk/0qci0nlGCG6Hz2428Irop3mdvABfOa+/jPzFBO1EzovvfHSFQ0TBSAqk7kf3WONLgZhY5FLK4lsvPaZWQVEe66QVuOKnx/bVtOwKEb/d/sK
+              type : 852227
+            -
+              type : 1310979
+              enabled : false
+            -
+              type : 852228
+              role : N
+        -
+          name : STC_Title_of_the_page
+          identifier : 0x2a564fdc9795c853
+          internal_properties : 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
+          properties :
+           x : 20
+           y : 6
+           width : 563
+           height : 60
+          type : 3
+          code_elements :
+           internal_properties : CAAAAAgAAACRL0IJL7hTvePUKHgy/KukuIQrRq6i/3kNUKEO9z+F1hpWXNAWYN43AvClcX8sQHSncEC2AHH4VOcMOaFWVYKFhzLYTVUx6+R2Uj4WJOYy82df/OFLFmq/CCkD6Qgn1L62Q7Z/lwQaiVeS9C5K
+           type_code : 2
+           alias : M4
+           p_codes :
+            -
+              code : |1+
+               MySelf = MyPage..Title
+              type : 851980
+        -
+          name : CELL_Page_title
+          identifier : 0x2a564fdc9796c853
+          internal_properties : CAAAAAgAAABGlG2VgCIftVWq5zZafnebYClwvBcNFzWo9s7Bj3XJos7IjIE+YIpmpAzGPcYiTH6W58E/RoSmNP8vsRTLRBwYXgvcADTREvSATlX3L7xw8Ovb7AjWGyXqF0WDfB7TTqEOXGC0ne/PB+DbtOJGhfyB5SjRtcA7lwdl1KH2YUW0d1LLwOS0QnNyHGk/lzOsAhBagOomJ0UtuaRjwcxhuZb1LvdiE5nfOSHzt8sq2JPWUVW81pcfMZv7CsvMp5DanSxYxxuEn/Pg17Ak0kilaBFv9qqK4xRmUHUIgrV42cQD5nqjWGjBnBAwrydpdrMYwyvyVjKPcVnV3uH6B5+Bsd2o0Up4YCCWYHmEaQdBiij7JrsBnZURBLzSa+LmqOdwKkf0XuJPyRhs4VemdA+KrfLJ9M/Rb8csrqQxivvD3UCr38bbNq8NKe8yYqfTHPQtYtzVxkP/FkjSRu79ZbSSzgitZYTFbbdOZwopzKfXs9ZUB5FWrBZmpl6rGzE9EzqfimbD4gDIMBkUrQmdBiw5a5tFfCJJuwedzdoTHBrRIr/vVhkb+Uyt4IKbHqctTMVtx8a668hhwAn9NowKuE8h91u3GKfXLseK3+LO3ns7GTynjgfImKBtvQ3TCsB89NbYK99XraRPpIacw73YF1vQHwsp738E0nFpju6SbiI1MuaaQpvVsmhoAmug50S02MfaLMW3fs/XRx/137gPclMVWLREfLD7Hh/vG72oO7wsffhZPiYkwN92nhqNrh5LRc8lZWFah5NDGe0CMP1xEcxrF/MSntQd960y5K2UikKWYvs1YUpzYR9+udKfStjTV8Kt4j/vc9+9RdxmvHnCX06EZWtvjVkdxSs8LAyxUYs8FdyXl+wJK7KGVVDii2YoKb+vtrHu/OaVbM7gpjSlFFhCAZ7Q5rAAWVNL2pkhDhvQzwODISnHn31TnOkB/7G7f4SfTmcJmeVPpFM901qZPyHBmrjpnrf8DgZnP6aqg35NOjY1gr/aYXLtHupe2Vgw0PbZJAbEGSFTWcHjTYwnheojCoDurIMncGS2GniWOhEFWNcybm/oIwD8bWN7s6tdSnKU8/hgGuQFRLnPQO9TMbC520UVX3C9YABiDpPyIatyygskUOm1SBPczTJ/Xb0A9gK+4wkt6X1AEuLJw2u6TfU/ab8Ybzslv4xZGfAc1mEb2v2Vwd/6hGITROmFvzEcEpfgMhl0aOnRBYbIvW3OuIl20HKCpCCvpw141WwfPZV73vw+9gSwxBteJDVN6ViiYGB1bswPLsT2Bv19FevP1lnLsRL54ybMM8DAsaIcWH3Nt4rGyvXI9CP9S2QK0KK1+gzc4HK5q9k5BPFWushrjOUJRwqVJEqjsl5PZEa57G08o6LFspyrw5ZZkHSrRZk901eQvz4x1pKhzl7x0l1PjqobZaCivqRX5aT65yq73pXAPc1rjpWRwz6lvRBaqOOaulnNxZdXKiKOgavgPupqnmVeAJVmXVmVNKHGr0fC7hAROLZjIC1qwzYI639Qj+FDEJUtg3szBT/3w6iiOB7ucTBLM5vvRfeGUgqhpZuFKhoQGzUm1h5PxfHjPxuIW/alMdy2iBaxIV1eygRJ5r20jDacU9gPqdnz92yI9HsyOiq3bJeSbJ9WWH+Cbqn+0NckScKWn/omxvPpcDkYWm/79Qyfg0N4JeIpbtoRAkoRrEf77iIPNRLmOl+RnkeDYhPcYQu2G46ZWqvBp78usvhziTcerxzvMXhCcWJGoZEyZktsEw3I8MhSgzgb193tuuI6AXn43c6JOME+d1au/JAc8kwFeJH3m+MtTJkQ3Ps+hpKC8CP8o7omGUQeKwCnjGvHuHewA1zkRgjdu4B9FaoA8l7heBeHS7cpCkUCg+rrGljTHzZ27xkYG2nzyUWmqpJk78gMEEo+wb9vYwK/Pz3AHsEm72g/17NH9tiJW+ZrZisC2Wsi4qRJxQ==
+          properties :
+           x : 20
+           y : 66
+           width : 940
+           height : 1
+          type : 39
+          code_elements :
+           internal_properties : CAAAAAgAAABDe6LEYvI0SRJwyd8nYlaW8eVgERUR1ogI9XUoHC3h92AKs1UKgGebX6XcuG6sUdEA+5oYRKt8X2MKbyHrfeMzeMghEi0yaUOtyPRGe5vfI5/jDOS6S+mdsjQCl8/2
+           type_code : 60
+           alias : M3
+           p_codes :
+            -
+              type : 851998
+              role : N
+            -
+              type : 852005
+              role : N
+            -
+              type : 852227
+              enabled : false
+            -
+              type : 1310979
+              enabled : false
+            -
+              type : 852228
+              role : N
+              enabled : false
+       type : 84
+       code_elements :
+        internal_properties : CAAAAAgAAABXjZkC75y7ePEZt5P8kN1KtdntIQJni5/ZMKd4wyu2IWzOYq2gUfW4Tv15RAsH7GZUGzvgoHQkR4w6fvKiahQHUryj9+bkge50flKaE0HZH2bHnV43JGwNL+h4sAAWSTXyN6rFdqqLJGk081ZQ1Vfa
+        type_code : 124
+        alias : M18
+        p_codes :
+         -
+           type : 851998
+           role : N
+         -
+           type : 852005
+           role : N
+         -
+           type : 852227
+           enabled : false
+         -
+           type : 1310979
+           enabled : false
+         -
+           type : 852228
+           role : N
+           enabled : false
+         -
+           type : 852217
+           role : N
+           enabled : false
+    type : 84
+    code_elements :
+     internal_properties : CAAAAAgAAAAj+G21hSlV11SkNmtJLkejPVP8IqTRH3mgdmtJel/hNZ9JVUgbTyK99w4DGfjW2pGdHLAE8wZ2yQVKRIQ06ELZK4+32ZouiizGPp6TB3ozrZTIQtHUF/Hi9EfDw9/QDh71rCtSDbmoHvuMtQufMk4shW1W15wH
+     type_code : 124
+     alias : M2
+     p_codes :
+      -
+        type : 851998
+        role : N
+      -
+        type : 852005
+        role : N
+      -
+        type : 852227
+        enabled : false
+      -
+        type : 1310979
+        enabled : false
+      -
+        type : 852228
+        role : N
+        enabled : false
+      -
+        type : 852217
+        role : N
+        enabled : false
+  -
+    name : AREA_Footer
+    identifier : 0x2a564fdc9797c853
+    internal_properties : CAAAAAgAAADvExhDRcdudMJUVx3Pkf4U1ov57crI+LTp7m6N/Nxq6Hk7v2Pl+34jx6G8MtX4ltw3fCZ5yN0Anm5FYL2dzAprVXk04X6R409SrOprDK9QLxumRWse1m0uj8pINN5aTrI763DjEP3TAc4eCe+YwVfm1TGXxx9XGLVkdGJCWEotsNlJn/rULoxJvrVSqOCNE3x51LtMzVVAk/JYmpvzR6q3E8pQTFDpF34NPITtQ6WZxv4me7QXxKARoqdRaZqcRpu2DDET1gacsZg8gOxZULQvegH/Sp03PyNdG8OT4P43H7xbf5fucOR6G+ger7agJP5Gem5be7WJdcR6pbAOYR+RsJTkBVpmItDO4gbz9V10eMhg03VIjF7WKNeddMvyWImAaBOHc9pvTj28fflf4sYFXcOUraK8wbaNMiD1qZKkM8m4PEHlTV75ipg6sswVhsu1FXsrES9TnglCvSo0YlI9ap2WyatzaM57rE/nRX3Bbnu6WeIkANF8EzTBbkxrAnoASwwHPpY8tqQbHttas98/bHoDho5bjIKXGB1hjEmg+Mi/t/hX53jfYmJKwJ8jNp5n5IKDo6PQmx401ZYHlXImg7jR1+9GTooaSGq4NfmcYAJlf5AxbYHQS3eLCA9BaCKLfc0UjzHEFOeEZOnN4mQ/JD4EO7PMcJKXlwYgMukiTpj7acNK4SQfQo4CBzLbS/z9MIL6E94ALXaJ7QimNsuw3xSCVnzUNByBGXIWftDbXceyNOd7YbJKCprK0+zkwIoDsHfBV5XErBEHy0yo7kQDTvlqvH/62ETteRFgPDPgpO2Qozjar29k92/V8IhyiW0bzhLtf9uBeCF83Auq+q7kE2q3kd2dgPzR97J+VYvHmhBXpCtWhzkdGmPGOXaeRnEdNK9J8Hbyxk8W166fvbS3N0yQ1O+vcjUYwqP/pah7AV53RE/uINE0mVgWgsfX2I9tOFRX3Nawm12OJ0Ui6FOsLRRzPHMYbxTxG0zrxTnlPT0JKxKrpYCLzvlZjEBdQB0szSjrtwY2vXDigfM0vEvHvvkvhyEVxTHmQnmlGbjE1ucI/Zg397lg+84uojtdiq1/apcT2moVgY8PsMvENNJKssWx6XPdihYUbBxW0IX7T8c5Cx2H5cyPNNz8YScGMpMqaRlOljYQuIysawbyS+YQJafgBzsUWUQuZ+AqscOzLQXh4AQn3P6rBaSCcTiO2LF3ymz/DUequ9H8KyQHIeGjnYvJoRC1Rn5YvDzzbmfU4nsswSGE6aTqLZDiJ+Jr5Vw3wS8y0d6kGi+6RYTwSLXnAXSyKoGMvJ4EDqM6+/NSUN9jz0Ut+CXtV0H1uVgFx4/hqaxOvpb326Zwz/TXoWPW2/uA+sECdnCgND78WujkuDwoQY2JSXE0JV2YRQzfvHrAhM6nr9FkD3wd3U9GvN2bI9VkEk5EXO4HN2XFkRubSbp94+4JzJj7Ef/eSaW4Ft65TYl3qWp5WLfd/EONmSe47TgRg977TzwTCqINUKaPF46XNsAbhYHSJjmJ1Bj+D13Guc5p9VEMHdZKxTXd8bs/zTL1Rsee35uGEJVHLguIyjJxpgox43ndpvBXtW2bCdfeTkHec77nwL0KIh6UVvU2XvDEu6uOtFSXfd00LHqN/9kjRJuinGn8SdUz32N3H9aoyQCeJSg4ZbAw4hQnEFWe0fofxmRLYZtBmwWZ7y5lGUEzx0WpzzjZsdA5ER+CIrdIydp79JCkGTggaQepi6jPuBNANvj3TYUmT25S6UlKkS1okEtLxTvyeU3xujTdv9D/nsrdsF1jAV60s5pHC7VvLAazoHS/EO2aNo7jyb+PbO8xQm/pm7Uo4pIDJ1mojOHdhtKinRqUFiXjui6BKyAyanMwQujx4wKrC/KS8g==
+    properties :
+     y : 752
+     width : 980
+     height : 192
+    controls :
+     -
+       name : STC_Footer
+       identifier : 0x2a564fdc9798c853
+       internal_properties : CAAAAAgAAAAxA2EU+w1z1k8oy8Ug+ZzoBX91T+mqVPWDXjIL3vD93mDRWxcrJE3mHFaF2MmyilMI0VJrd7xWBENBAgyR7Rsc/b4Bka17PTAsRWFD8PNeEIyY4LlXoOUaDHrmkeTpLLtXqlFJSCVR383DmTbTfd5iqon9LtQGR/K8UWA66L2soGwEYatDubn4pC7k7bfwbEmGApiF+MflV6jMzUhUh/CST/9kabf+o8s+gm3qMaiqehdTKDG2JQSDTYJD/OfvmH304ggsYHXacdAkPQkAFroLHAl2i8i3U04XuzBevAYhDP0+xNeTvyY4mPUTNzRtgcXE1wg7gmVNWhIyN3i6irvsqqRBhYtJsq3g58ekPDZkwMcbooHUFWT8EYwjD/UFQZ8oSuP9u/+M5/QbahXucmkWcuAl+ex1lhYrMRWemP2cbKYGU0nr/cJ4CmafqblWUMg/vo/uuG8EuBWNIhVNuOfYJZ5lX1UH2XhB33di2hleSfrcj9us95pplqtL7QDlCZzNz6rwMmuUoD7Gy0fHnOs6zo9v/pKMu8sVN+5mzl3T/RuOrRU5K/BVNqKxiLviGUFMu/FdVEGCPd6rkE7fh3T5A8wdiE+bNyCz62y42gB7q/OUEWS+3oTO2F3+MoQLCZveK8AHAlvYS59WCRrP0VuQpECxdzHeURsNwaajHUUTrkDLayYjmfLd2KDxLmeQ/OvtANG54HnRJ6RAA7xDmtloyV5eZTStL+pr0Y7QdODsy57S9EsMf7lM3dep5JBEFeV3nmi9u1JgLSVK8QovKofqjf9IwMBc9/CrPrCjxx5iH/PCRz2Q428CKRa4YoHCMCmn9fp8WgJ+7crXvMwpuYI/e5DGIstbUkHPxHX8QrKMAP8bG5yftBRGr2zGBl+xDYn6ZbjYfbhM0L15eu1sWCodQa0eZ2FURPsi4q19vsyZjXKEj076WRY2R4EPiLH2pydiwNF0f/B9nbPRbk3SYwcZpPGKR4pcPCYN2vIdBqG7rdn8eg9DS8QrZWnQLBAL8Zzc16dnnU672M3Ta5uBTuP8REvXovW2ZRa6N1eCeiIsf2LS/neVorIvsHjbuOLaP/yTtnjPaTtfmv5QgPfq8wsS772nXgNKN2KlGazMT22cJ3Xt0DO/g3DzAi2ecwR4JJChk2Hyj+whOb8IwJCFfEqz079Y+p8lhe/XPnpB6+SEvJailwC0adXtSKS/f/2VaH3ZMgxlGLhgsDYhimCyEIItjHTg6/yh+G99MW/4FJLInWpD2LGV/i1oPG5/wR+khcU1vgapcOfzBd85CAj6SmeAaTE6QCV15FyxuG7QOurZaQHFwjZhkJWNHTWwjlWUatmSzelNCCG8rlFTv8JUL7dHBDj+tHUy/Nr7yhGJQkgoUCSD/BQ/FxZmUpmG4rjNjbckFPoBZJTvV3c3ubQfpjlN7X1k3Enve6m0vBZ7OqzMKxOBb3dk6DS0jmnCx4ieB9haoMNIpdHUKzkC9KbwhwujiLyD9MZdTjjSSbLyVdi1YSEqPdHy/KkWIAay+ugTbytEzuOaR59kAYzdt4okqjjK+kzGYACgMGNbL285RdZ67kMpGemU4o1wXiIMtrAAbYPyBofyRsZ4Y4xvWFY7g4wjgaLUYbU37MsLo1Mlo7lSnnN5yVMR6R0gzYO0Gxsgja26UkiwS5fhT60rVjEK6LnHUsR3WjSV+lznFKvLgLBEkPtHLqdlS8uEK8V4aJzLyPFn1lV+rUVOEC6Ca8e5drU0eUVkBpgtnm/SBOsZhOi4IzQ=
+       properties :
+        x : 159
+        y : 115
+        width : 662
+        height : 25
+       type : 3
+       code_elements :
+        internal_properties : CAAAAAgAAAAZgWD6RBjORxh23+ndeHyMF7vGbzfPQOY2q2kgXPEd26w+E9V6tMdDx0UkFFK06ZdKjQSCVoVWQeVswS817x3psrpDrAcYU63bptKgnXn5ObX5Gta0UfOniFo4WYks
+        type_code : 2
+        alias : M10
+        p_codes : []
+     -
+       name : IMG_PoweredByWEBDEV
+       identifier : 0x2a564fdc9799c853
+       internal_properties : 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
+       properties :
+        x : 450
+        y : 53
+        width : 80
+        height : 28
+       type : 22
+       code_elements :
+        internal_properties : CAAAAAgAAABjG4KkAtKUqTIQqT+Hwra2UUUAsXUx9qho9bXoXO3hd2CKM9XKAKcb32VcOG6skbFgm/r45Mvc/8OqD4FL3cOT2GiB8s1SiWON6JTm2zu/A/9D7IQaK8n90hRid+/W
+        type_code : 57
+        alias : M7
+        p_codes :
+         -
+           type : 851999
+           role : N
+         -
+           type : 851998
+           role : N
+         -
+           internal_properties : CAAAAAgAAABvhQpwjKu/fxiiCXBy5ZViT6d7CKKTbCoGRYEqD7zf6STCDmX0Ijc4NTAVfs8EoOT8iblTBicypKDvEPbLwEogmC7B7dpCulq6bJYFrQ4sns88rKCOCQ==
+           type : 851984
+         -
+           type : 1310736
+           enabled : false
+         -
+           type : 852149
+           role : N
+           enabled : false
+         -
+           type : 852178
+           role : N
+           enabled : false
+         -
+           type : 852179
+           role : N
+           enabled : false
+         -
+           type : 852180
+           role : N
+           enabled : false
+    type : 84
+    code_elements :
+     internal_properties : CAAAAAgAAAC7I7rsSgp8EUq4IUc/Wl6u+d1oCQ3ZrsDQrcWYzH0xtzBKE3U6YEe771V8+I4MUUnoIyLwHJOEJ2sSZxnTVasLQBCJymX6MYvlsOxOQ6PXG5fbdAyCgyFVekwqryeO
+     type_code : 124
+     alias : M12
+     p_codes :
+      -
+        type : 851998
+        role : N
+      -
+        type : 852005
+        role : N
+      -
+        type : 852227
+        enabled : false
+      -
+        type : 1310979
+        enabled : false
+      -
+        type : 852228
+        role : N
+        enabled : false
+      -
+        type : 852217
+        role : N
+        enabled : false
+ type : 1
+ languages :
+  - en-GB
+ code_elements :
+  type_code : 38
+  p_codes :
+   -
+     code : |1-
+      Procédure MyPage()
+      
+      CELL_Connection..Visible = False
+     type : 851968
+   -
+     code : |1+
+      
+      // Disconnects the user
+      Disconnect()
+      
+      LINK_Home..URL = BuildSimpleURL(COL_ManageAccount.gsURLHomePage)
+     type : 851996
+   -
+     type : 852017
+     enabled : false
+   -
+     type : 852119
+     enabled : false
+   -
+     type : 852298
+     role : N
+   -
+     code : |1-
+      
+      // Goes back to the home page
+      Timer("Redirect",100*2)
+     type : 851999
+     role : N
+   -
+     type : 852000
+     role : N
+   -
+     type : 852232
+     enabled : false
+   -
+     type : 852167
+     enabled : false
+   -
+     type : 852169
+     role : N
+     enabled : false
+   -
+     type : 852225
+     role : N
+     enabled : false
+   -
+     type : 852227
+     enabled : false
+   -
+     type : 1310979
+     enabled : false
+   -
+     type : 852228
+     role : N
+     enabled : false
+  procedures :
+   -
+     name : Redirect
+     internal_properties : CAAAAAgAAAC0TaGuYi2PqOQmiC1YmXJbMUTnjPWO9mhkQd3KIBH1rSc/lp1PMClvZtdu4BMhj7h3XT0qh3VDLEy3sw==
+     procedure_id : 1897792099390900307
+     type_code : 14
+     code : |1+
+      // Summary: <specify the action of the procedure>
+      // Syntax:
+      // Redirect ()
+      //
+      // Parameters:
+      //	None
+      // Return value:
+      // 	None
+      //
+      Procédure Redirect()
+      
+      ExecuteProcess(LINK_Home,trtClick)
+      
+     type : 458752
+     role : N
+  templates :
+   -
+     name : disconnection
+     identifier : 0x1557b1ae0cac5f46
+     code_elements :
+      internal_properties : CAAAAAgAAAAOsnMykF2QwNbIscwA7Hhcr/8ToOAQXY0/+ehWEtQUg4K8L+i14mCez1XvmkbGPGgTwqpdgHnq5babLQM373gqGDirDaA9lY0zBJagPUPepIEoHx4ALLKSZAzPjZ9DUN+HbZlL4gAXCORc
+      type_code : 38
+      p_codes :
+       -
+         code : |1-
+          
+          // You must be connected to access the pages that use this template
+          if not bIsConnected() then
+          	ScriptDisplay(BuildSimpleURL(COL_ManageAccount.gsURLHomePage))
+          end
+         type : 851996
+       -
+         type : 852017
+         enabled : false
+       -
+         type : 852119
+         enabled : false
+       -
+         type : 852298
+         role : N
+       -
+         type : 851999
+         role : N
+       -
+         type : 852000
+         role : N
+       -
+         type : 852232
+         enabled : false
+       -
+         type : 852167
+         enabled : false
+       -
+         type : 852169
+         role : N
+         enabled : false
+       -
+         type : 852225
+         role : N
+         enabled : false
+       -
+         type : 852227
+         enabled : false
+       -
+         type : 1310979
+         enabled : false
+       -
+         type : 852228
+         role : N
+         enabled : false
+      templates :
+       -
+         name : disconnection
+         identifier : 0x1557b1ae0cad5f46
+         code_elements :
+          internal_properties : CAAAAAgAAAARt9PUEexbWMk/NN7SUZAUezu7UhISTHE/JzVBF8jIaiA1BoilNlgN4cFknSwEq1J6uSSfaEribloQCkYTK5fuu6hXFzZtUJctXheXoN2LpkUdHfkQQmX0yAoHHzTC5S12wvSBmwYRiocSxYSGjx0c
+          type_code : 38
+          p_codes :
+           -
+             code : |1+
+              
+              gsCurrentURL is string = CurrentPageAddress()
+             type : 851968
+           -
+             code : |1+
+              
+              if not gbSiteConfigOK then
+              	PageDisplay(err_config)
+              end
+             type : 851996
+           -
+             type : 852017
+             enabled : false
+           -
+             type : 852119
+             enabled : false
+           -
+             type : 852298
+             role : N
+           -
+             type : 851999
+             role : N
+           -
+             type : 852000
+             role : N
+           -
+             type : 852232
+             enabled : false
+           -
+             type : 852167
+             enabled : false
+           -
+             type : 852169
+             role : N
+             enabled : false
+           -
+             type : 852225
+             role : N
+             enabled : false
+           -
+             type : 852227
+             enabled : false
+           -
+             type : 1310979
+             enabled : false
+           -
+             type : 852228
+             role : N
+             enabled : false
+           -
+             type : 852217
+             role : N
+             enabled : false
+  procedure_templates : []
+  property_templates : []
+ code_parameters :
+  internal_properties : CAAAAAgAAAA+IOYX7+FvEGVWR1no34Ode0WfbO3Bu+n4J85rFeaZblRDyEQaUatJG1syRWDHUoi03eQ3ortasdgMN6LcdDBCxrGQfzG/4WR1yHMVyVsGzL/4P9oEkRo/FjNieQ==
+  original_name : PAGE_SansNom1
+resources :
+ string_res :
+  identifier : 0x10069a00237abab4
+  internal_properties : CAAAAAgAAACY6n+VXWbBu+ExVqME8Bz9xqbQJRkVbV2Ow5kwxiNmkLjCEk8LfX0K5B5TV/cPyp9/hw==
+webification :
+ internal_properties : CAAAAAgAAACYzxT95H3qP7nIys4LqA==
+custom_note :
+ internal_properties : CAAAAAgAAAC68/W0/adbG0nFCRhrE42B5HRnbDzVHaz86sSQyxlBk7I=
+rad :
+ internal_properties : CAAAAAgAAABoAN7PLpwJW3EiA7WVZdCA5EwrCA1rvutcDHooMWKe

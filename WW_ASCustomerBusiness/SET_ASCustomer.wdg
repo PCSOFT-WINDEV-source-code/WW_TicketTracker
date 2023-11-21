@@ -1,0 +1,1166 @@
+#To edit and compare internal_properties, use WINDEV integrated tools.
+#Internal properties refer to the properties of controls in windows, reports, etc.
+info :
+ name : SET_ASCustomer
+ major_version : 28
+ minor_version : 0
+ type : 7
+ description : ""
+ subtype : 0
+procedure_set :
+ identifier : 0x1a56502c07dd00b4
+ internal_properties : CAAAAAgAAABGLu41kG7fjQV3iS4F72qmnKaNh5694reolNKIW0iw
+ code_elements :
+  internal_properties : CAAAAAgAAAAsfTmWTboMJI1OO5ho1a6prr4gzt223D/w5+RrQDVDP5FQhEwsg7EChAuzgHbG8Yn6jz0POtrEypcYocGm+1FhcCNoasvA
+  type_code : 31
+  p_codes :
+   -
+     internal_properties : CAAAAAgAAADqAtwAAJeLYYot8QytUQR6Gj1FnVS6pTUkwdRaKYdi/QsGgAVF9UngpGU4TxIFitdgT3nRZ8NUNYqnEc8fw+atyzLpl1Wh1jUrDCaJQkRlczh+9QUUJTyf2mkZYjKhEesesjMT0o8DboKskq8xm/t6Lwv13KeFzLuVB7O1aUUPOeeXTmq6toVNYqbPqnyp0loThKwVJSxwPM8HUbZ1BXiGeGO56+SHLtRxbkODEmvabAhXGp9zOFATEVHJ2AhG6pVOOomlKWuTrcmOxLs/xxSOU1JK5/m8gvH4g+zENgrVitMlSEYTsC87um74YQabJIYIcyfQ
+     code : |1+
+      constant
+      	// States of incident ticket
+      	STATUS_TICKET_INPROGRESS = 1		// The ticket is currently processed
+      	STATUS_TICKET_REQUEST = 2		// The person in charge of ticket requires additional information
+      	STATUS_TICKET_SOLVED  = 3		// The ticket content was solved but it was not checked yet
+      	STATUS_TICKET_CLOSED   = 4		// The ticket content was rejected but it was not checked yet
+      	STATUS_TICKET_ENDED = 5		// The ticket was solved or rejected and checked
+      	
+      	// Constant for names of rights
+      	RIGHTS_PRJ_MANAGER = "PRJ_MANAGER"
+      	
+      	// Constantd of roles on the projects and tickets
+      	ROLE_PRJ_RESPONSIBLE = 1			// Project manager (can create, modify and destroy projects)
+      	ROLE_PRJ_CONTRIBUTOR = 2			// Contributor (can propose corrections on tickets)
+      	ROLE_PRJ_GUEST = 3					// Guest (status while waiting for the guest to accept or refuse)
+      	
+      	// Constantd of roles on the tickets
+      	ROLE_TICKET_CREATOR = 1			// Ticket creator
+      	ROLE_TICKET_ASSIGN = 2				// Person to whom the ticket is currently assigned
+      	ROLE_TICKET_SUBSCRIBE_END = 4		// Person who asked for a notification when ending the ticket
+      	ROLE_TICKET_SUBSCRIBE_MODIF = 8		// Person who asked for a notification whenever the ticket is modified
+      	
+      	// Errors on an invitation
+      	ERR_INVIT_OK = 0
+      	ERR_INVIT_EXPIRED = 1
+      	ERR_INVALID_GUEST = 2
+      	
+      	// Severity levels of ticket
+      	SEVERITY_MINOR = 1
+      	SEVERITY_NORMAL = 2
+      	SEVERITY_FATAL = 3
+      	
+      	// Captions
+      	STC_NO_PARENT = "<no parent project>"
+      	
+      	// Constants for names of page parameters
+      	PAGEPARAM_INVITATION_TOKEN = "guest"		// Parameter of invitation page sent by email
+      	PAGEPARAM_INVITATION_EMAIL = "email"		// Parameter of invitation page sent by email
+      	PAGEPARAM_PROJECT = "prjid"					// Project identifier
+      	PAGEPARAM_FILTER_WORD = "filter"				// Filter tickets by keyword
+      	PAGEPARAM_FILTER_STATUS = "status"			// Filter tickets by status
+      	PAGEPARAM_FILTER_SEVERITY = "level"			// Filter tickets by severity level
+      	PAGEPARAM_FILTER_CONTRIB = "usesr"			// Filter tickets by assignment
+      	PAGEPARAM_URLFROM = "urlfrom"				// Return URL
+      	PAGEPARAM_TICKET = "ticketid"				// Ticket identifier
+      	PAGEPARAM_ATTACH = "attachid"				// Attachment identifier
+      	
+      end
+      
+      // Project description
+      STProject is Structure
+      	nProjectID is 8-byte int <mapping=ProjectID>
+      	sProjectName is string <mapping=ProjectName>
+      	sDescription is string <mapping=Description>
+      	nParentProjectID is 8-byte int <mapping=ParentProjectID>
+      	sVersion is string <mapping=Version>
+      	arrUser is array of STLinkedUsers
+      	
+      	nNbVoucher is int
+      	nNbOpenedTickets is int
+      	dtLastAction is datetime
+      end
+      
+      // Link users to a ticket or project
+      STLinkedUsers is Structure
+      	nIDUserAccount is 8-byte int <mapping=UserAccountID>
+      	nRole is int <mapping=Role>
+      end
+      
+      // Ticket description
+      STTicket is Structure
+      	nTicketID is 8-byte int <mapping=TicketID>
+      	nProjectID is 8-byte int <mapping=ProjectID>
+      	nCreatorID is 8-byte int <mapping=CreatorID>
+      	sSummary is string <mapping=Summary>
+      	dtCreationDate is datetime <mapping=CreationDate>
+      	sExternalReference is string <mapping=ExternalReference>
+      	nAssignmentID is 8-byte int <mapping=AssignmentID>
+      	bOpened is boolean <mapping=Opened>
+      	nGravity is int <mapping=Gravity>
+      	nStatus is int <mapping=TicketStatus>
+      	
+      	arrUser is array of STLinkedUsers
+      	arrIntervention is array of STIntervention
+      	
+      	// Detail variables
+      	sStatus is string
+      	sAssignmentDisplayName is string
+      	sGravity is string
+      	dtLastIntervention is datetime
+      	sProjectName is string
+      end
+      
+      STIntervention is Structure
+      	nInterventionID is 8-byte int <mapping=InterventionID>
+      	nContributorID is 8-byte int <mapping=ContributorID>
+      	sDetails is string <mapping=Details>
+      	dtInterventionDate is datetime <mapping=InterventionDate>
+      	nStatus is int <mapping=TicketStatus>
+      	nGravity is int <mapping=Severity>
+      	nTicketID is 8-byte int <mapping=TicketID>
+      	arrAttachment is array of STAttachment
+      	
+      	// Detail variables
+      	sInterventionDisplayName is string
+      	sDescriptionChangeStatus is string
+      	sDescriptionChangeSeverity is string
+      end
+      
+      // Attachment to a ticket
+      STAttachment is Structure
+      	nAttachmentID is 8-byte int <mapping=AttachmentID>
+      	sFileName is string <mapping=Description>
+      	bufContent is buffer <mapping=Content>
+      	sMIMEType is string <mapping=MIMEType>    
+      	nInterventionID is 8-byte int <mapping=InterventionID>   
+      	
+      	// Detail variables
+      	nTicketID is 8-byte int
+      	nFileSize is 8-byte int
+      end
+      
+      STInvitationInfo is Structure
+      	sProjectName is string
+      	dDeadline is date
+      	sEmailResponsible is string
+      	nError is int
+      end
+      
+      gbInitCompleted is boolean = False
+      gsURLPageCreateAccountOnInvitation is string	// URL of page for creating an account on invitation
+     type : 720896
+  procedures :
+   -
+     name : PROJECT_Create
+     internal_properties : CAAAAAgAAAAO3YsoLGctpaQ8nBFO9Nf4RoeJi8Nl0HuwLR5IUDO0kbx+GJ9DCXcIR52W25nwCF0a+UXUWSPOtp9Jtf+zMtgrY1RTBkswaCZYAkwKrgrD9IB8CfmIOkGygAs9Y5vVK0UOGnOIW+s8/I26m5+GMPeqRW90nlWdmSImbYrdKoXofojwD+g=
+     procedure_id : 1897792443024015540
+     type_code : 15
+     code : |1+
+      // Summary: <specify the action of the procedure>
+      // Syntax:
+      //[ <Result> = ] PROJECT_Create (<stPrj> is STProject)
+      //
+      // Parameters:
+      //	stPrj (STProject): <specify the role of stProject>
+      // Return value:
+      // 	integer: // 	None
+      //// Automatic process of errors:   run the block of code CASE ERROR
+      //
+      Procédure PROJECT_Create( stPrj is STProject ) : int
+      
+      HTransactionStart()
+      
+      HReset(Project)
+      MemoryToFile(stPrj,Project)
+      HAdd(Project)
+      
+      // Adds the users
+      for each stUser of stPrj.arrUser
+      	HReset(UserAccount_Project)
+      	MemoryToFile(stUser,UserAccount_Project)
+      	UserAccount_Project.ProjectID = Project.ProjectID
+      	UserAccount_Project.InvitToken = GetGUID(guidRough)
+      	HAdd(UserAccount_Project)
+      end
+      
+      HTransactionEnd()
+      
+      result Project.ProjectID
+      
+      case Error:
+      ErrorPropagate()
+      HTransactionCancel()
+      result 0
+     type : 458752
+   -
+     name : PROJECT_List
+     internal_properties : CAAAAAgAAAAO3YsoLGctpaQ8nBFO9Nf4RoeJi8Nl0HuwLR5IUDO0kbx+GJ9DCXcIR52W25nwCF0a+UXUWSPOtp9Jtf+zMtgrY1RTBkswaCZYAkwKrgrD9IB8CfmIOkGygAs9Y5vVK0UOGnOIW+s8/I26m5+GMPeqRW90nlWdmSImbYrdKoXofojwD+g=
+     procedure_id : 1897792443024081076
+     type_code : 15
+     code : |1-
+      // Summary: <specify the action of the procedure>
+      // Syntax:
+      //[ <Result> = ] PROJECT_List ([<nUserID> is 8-byte int [, <nRole> is int [, <bLoadDetails> is boolean]]])
+      //
+      // Parameters:
+      //	nUserID (8-byte integer - default value=-1): <specify the role of nUserID>
+      //	nRole (integer - default value=-1): <specify the role of nRole>
+      //	bLoadDetails (boolean - default value=1): <specify the role of bLoadDescription>
+      // Return value:
+      // 	table: // None
+      //// Automatic process of errors:   run the block of code CASE ERROR
+      //
+      
+      Procédure PROJECT_List( nUserID is 8-byte int = -1, nRole is int = -1, bLoadDetails is boolean = True )
+      
+      arrProject is array of STProject
+      stPrj is STProject
+      
+      if nUserID=-1 then
+      	for each Project
+      		if bLoadDetails then
+      			FileToMemory(stPrj,Project)
+      		else
+      			stPrj.nProjectID = Project.ProjectID
+      		end		
+      		Add(arrProject,stPrj)
+      	end
+      else
+      	for each UserAccount_Project where UserAccountID = nUserID
+      		if nRole=-1 _or_ BinaryAND(UserAccount_Project.Role,nRole)>0 then
+      			stPrj = PROJECT_Read(UserAccount_Project.ProjectID,bLoadDetails)
+      			Add(arrProject,stPrj)
+      		end
+      	end
+      end
+      
+      case Error:
+      DeleteAll(arrProject)
+      ErrorPropagate()
+      
+      end:
+      result arrProject
+     type : 458752
+   -
+     name : PROJECT_Read
+     internal_properties : CAAAAAgAAAAgLCd99kYOLDh3eCiqOAUhNfguVPLRct/uP8qxUBBRrV1BD2ARzsEOb4dhA+/9uWFiFaIXvM19nRRAZ3D8acT3aP51L9UG/L+De6h5IEm4LrryDajusjG3BgqpQ1l85NgDHfEa+ZWBh0j+uMW3vxuJqTkEvIAMz6W12Z9FQUVmQ5NmN2OqCQuog/jfV5zI85tpuAXZOmSz
+     procedure_id : 1897792443024146612
+     type_code : 15
+     code : |1+
+      // Summary: <specify the action of the procedure>
+      // Syntax:
+      //[ <Result> = ] PROJECT_Read (<nProjectID> is 8-byte int, <bLoadDetails> is boolean)
+      //
+      // Parameters:
+      //	nProjectID (8-byte integer): <specify the role of nProjectID >
+      //	bLoadDetails (boolean): <specify the role of bLoadDetails>
+      // Return value:
+      // 	STProject : // 	None
+      //// Automatic process of errors:   run the block of code CASE ERROR
+      //
+      
+      Procédure PROJECT_Read( local nProjectID is 8-byte int, local bLoadDetails is boolean )
+      
+      stPrj is STProject
+      stUser is STLinkedUsers
+      
+      if HReadSeekFirst(Project,ProjectID,nProjectID) then
+      	FileToMemory(stPrj,Project)
+      	if bLoadDetails then
+      		// Associated users
+      		for each UserAccount_Project where ProjectID = nProjectID
+      			FileToMemory(stUser,UserAccount_Project)
+      			Add(stPrj.arrUser,stUser)
+      		end	
+      		// Stats for tickets
+      		if HExecuteQuery(QRY_CountTicket,hQueryDefault,nProjectID,Null) then
+      			stPrj.nNbVoucher = QRY_CountTicket.NbVoucher
+      			HCancelDeclaration(QRY_CountTicket)
+      		end
+      		if HExecuteQuery(QRY_CountTicket,hQueryDefault,nProjectID,True) then
+      			stPrj.nNbOpenedTickets = QRY_CountTicket.NbVoucher
+      			HCancelDeclaration(QRY_CountTicket)
+      		end
+      		if HExecuteQuery(QRY_DateLastProjectInter,hQueryDefault,nProjectID) then
+      			stPrj.dtLastAction = QRY_DateLastProjectInter.InterventionDate
+      			HCancelDeclaration(QRY_DateLastProjectInter)
+      		end
+      	end
+      else
+      	ErrorThrow(1,"Project not found")
+      end
+      
+      case Error:
+      ErrorPropagate()
+      
+      end:
+      result stPrj
+     type : 458752
+   -
+     name : PROJECT_Modify
+     internal_properties : CAAAAAgAAAAO3YsoLGctpaQ8nBFO9Nf4RoeJi8Nl0HuwLR5IUDO0kbx+GJ9DCXcIR52W25nwCF0a+UXUWSPOtp9Jtf+zMtgrY1RTBkswaCZYAkwKrgrD9IB8CfmIOkGygAs9Y5vVK0UOGnOIW+s8/I26m5+GMPeqRW90nlWdmSImbYrdKoXofojwD+g=
+     procedure_id : 1897792443024212148
+     type_code : 15
+     code : |1+
+      // Summary: <specify the action of the procedure>
+      // Syntax:
+      //PROJECT_Modify (<stPrj> is STProject)
+      //
+      // Parameters:
+      //	stPrj (STProject): <specify the role of stProject>
+      // Return value:
+      // 	None
+      //// Automatic process of errors:   run the block of code CASE ERROR
+      //
+      
+      Procédure PROJECT_Modify( stPrj is STProject )
+      
+      if HReadSeekFirst(Project,ProjectID,stPrj.nProjectID,hLockWrite) then
+      	MemoryToFile(stPrj,Project)
+      	HModify(Project)
+      end
+      
+      case Error:
+      ErrorPropagate()
+      
+     type : 458752
+   -
+     name : RoleToSTringID
+     internal_properties : CAAAAAgAAACCLe5Ix7Z70UR0iwFW6EPq7ZJG0g7l2YZWqJjJISa6rwCFK5L5MPSxvsZitZ6W1S4kXNQlzl4NAxDcRZ5MXERlR3BKOvzyD7JmHvq8Tq+Q+4gF4+tX2MXSrgMu4KU2qIWlfIPZLqM3cLIFczwtxTiZnpQalyEa/ZJ1epmtwkoSy6dpkRNQg8o3LYIUFAmVQKGj/B/eMVo=
+     procedure_id : 1897792443024277684
+     type_code : 15
+     code : |1+
+      // Summary: <specify the action of the procedure>
+      // Syntax:
+      //[ <Result> = ] RoleToString ID (<nRole> is int)
+      //
+      // Parameters:
+      //	nRole (integer): <specify the role of nRole>
+      // Return value:
+      // 	UNICODE string: // 	None
+      //
+      //	nRole (integer): <specify the role of nRole>
+      Procédure RoleToSTringID(local nRole is int)
+      
+      switch nRole
+      	// Constantd of roles on the projects and tickets
+      	case ROLE_PRJ_RESPONSIBLE
+      		result "Project manager"
+      	case ROLE_PRJ_CONTRIBUTOR
+      		result "Contributor"
+      end
+      
+      ErrorThrow(1,"Role unknown")
+      result ""
+     type : 458752
+   -
+     name : PROJECT_AddUser
+     internal_properties : CAAAAAgAAADcJBs8yWS1KGhVCjAcaKPx444qxmBJpmcWmSTxmnD3dUebc2oL6unGp/Xn68mty/HoW/aJHplFtURKbThuqfIrwlhFNdM26EePQTLgP6iFA+k32t1TOfzifb/WvugriVWeFopzchCopqufwZyStgw6uD4RqUWHhpw8XtS49DxDQKZnAKiHIB5fSj1ssm8LGGiXXlLxKmi/
+     procedure_id : 1897792443024343220
+     type_code : 15
+     code : |1+
+      // Summary: <specify the action of the procedure>
+      // Syntax:
+      //PROJECT_AddUser (<nProjectID> is 8-byte int, <sEmail> is string, <nRole> is int)
+      //
+      // Parameters:
+      //	nProjectID (8-byte integer): <specify the role of nProjectID >
+      //	sEmail (UNICODE string): <specify the role of sEmail>
+      //	nRole (integer): <specify the role of nRole>
+      // Return value:
+      // 	None
+      //// Automatic process of errors:   run the block of code CASE ERROR
+      //
+      
+      Procédure PROJECT_AddUser( nProjectID is 8-byte int, sEmail is string, nRole is int )
+      
+      stPrj is STProject = PROJECT_Read(nProjectID,False)
+      
+      sInvitToken is string = GetGUID(guidRough)
+      
+      // If the user already exists in the database, retrieve his ID
+      // otherwise, create the inactive account and send an invitation email
+      nUserID is 8-byte int
+      if bUserAvailable(sEmail)=False then
+      	nUserID = nEmailToUserID(sEmail)
+      else
+      	clUser is CUser
+      	with clUser
+      		.m_bEnabledAccount = False
+      		.m_sEmail = sEmail
+      		.m_sDescription = ""
+      		.m_sDisplayName = sEmail
+      	end
+      	clUser.Saves()
+      	nUserID = clUser.m_nUserAccountID
+      	
+      	SendInvitationEmail(stPrj.sProjectName,sEmail,sInvitToken)
+      end
+      
+      // Associates the user with the project
+      HReset(UserAccount_Project)
+      UserAccount_Project.UserAccountID = nUserID
+      UserAccount_Project.ProjectID = nProjectID
+      UserAccount_Project.Role = nRole
+      UserAccount_Project.InvitToken = sInvitToken
+      HAdd(UserAccount_Project)
+      
+      
+      
+      case Error:
+      ErrorPropagate()
+     type : 458752
+   -
+     name : SendInvitationEmail
+     internal_properties : CAAAAAgAAAAO3YsoLGctpaQ8nBFO9Nf4RoeJi8Nl0HuwLR5IUDO0kbx+GJ9DCXcIR52W25nwCF0a+UXUWSPOtp9Jtf+zMtgrY1RTBkswaCZYAkwKrgrD9IB8CfmIOkGygAs9Y5vVK0UOGnOIW+s8/I26m5+GMPeqRW90nlWdmSImbYrdKoXofojwD+g=
+     procedure_id : 1897792443024408756
+     type_code : 15
+     code : |1+
+      // Summary: <specify the action of the procedure>
+      // Syntax:
+      //EnvoieSendInvitation (<sProjectName> is string, <sEmail> is string, <sInvitationToken> is string)
+      //
+      // Parameters:
+      //	sProjectName (ANSI string): <specify the role of sEmail>
+      //	sEmail (ANSI string): <specify the role of sEmail>
+      //	sInvitationToken (ANSI string): <specify the role of sInvitationToken>
+      // Return value:
+      // 	None
+      //// Automatic process of errors:   run the block of code CASE ERROR
+      //
+      
+      //	nRole (integer): <specify the role of nRole>
+      Procédure SendInvitationEmail( sProjectName is string, sEmail is string, sInvitationToken is string )
+      
+      aaParam is ASSOCIATIVE ARRAY of strings
+      aaParam[PAGEPARAM_INVITATION_TOKEN] = sInvitationToken
+      aaParam[PAGEPARAM_INVITATION_EMAIL] = sEmail
+      
+      // Build the email
+      cEmail is an Email
+      with cEmail
+      	.Expediteur = ReadSiteParameter(PARAM_SENDER_EMAIL)
+      	.Sujet = StringBuild("You are invited to take part in %1 project",sProjectName)
+      	.Message = StringBuild([
+      		Hello,
+      		
+      		You are invited to take part in %1 project.
+      		To enable your account, click the following link or copy it into your browser in order to enable your user account.
+      		%2
+      	],sProjectName,BuildURL(gsURLPageCreateAccountOnInvitation,aaParam,URL_ENCODE_PARAM_VAL))
+      end
+      Add(cEmail..Recipient,sEmail)
+      
+      SendingEmail(cEmail)
+      
+      case Error:
+      ErrorPropagate()
+     type : 458752
+   -
+     name : bInitializeASCustomer
+     internal_properties : CAAAAAgAAACuDitrMX3gtZSX0nRByA1amcxLzevzwkWKmlh0fzlWu0SErNAt2CAQCG7JQvqhS42WjxV8detV/P0QIuHUSrqgG5d49QTR5VU4l+kJb4vvyzy/PN6+8drpoQ75wZ5Pq9LwJ8hUpdiY09vmBBOSaGNOZSOvWnA19JtWg8K0q5dJPBvVBbfw0d7Lo8gqzkMrNlbikz7vNq5YfnNS6Pr9pJLnSfiQwFBJ
+     procedure_id : 1897792443024474292
+     type_code : 15
+     code : |1+
+      // Summary: <specify the action of the procedure>
+      // Syntax:
+      //[ <Result> = ] bInitializeCustomerAS ()
+      //
+      // Parameters:
+      //	None
+      // Return value:
+      // 	boolean: // 	None
+      //
+      //	ctHFSQLBusiness: <specify the role of CtDatabase>
+      Procédure bInitializeASCustomer()
+      
+      DeclareAWPContext(gbInitCompleted)
+      
+      // Change connection for the data files of component
+      // Connection to the database
+      if ReadSiteParameter(PARAM_DB_MODE,"1")="2" then
+      	// Parameters of the connection
+      	CtDatabase is connection
+      	CtDatabase..Provider = hAccessHFClientServer
+      	CtDatabase..User = ReadSiteParameter(PARAM_DB_USER)
+      	CtDatabase..Password = Uncrypt(ReadSiteParameter(PARAM_DB_PASSWORD),"",compressNone + cryptNone, encodeBASE64)
+      	CtDatabase..Server = ReadSiteParameter(PARAM_DB_SERVER)+":"+ReadSiteParameter(PARAM_DB_PORT)
+      	CtDatabase..Database = ReadSiteParameter(PARAM_DB_DATABASE)
+      	CtDatabase..CryptMethod = hCryptRC5_16
+      	
+      	HChangeConnection("*",CtDatabase)
+      	if HOpenConnection(CtDatabase)=False then
+      		Error("Unable to connect to HFSQL server, the following error occurred:"+ErrorInfo())
+      	end
+      	// Create the files if they don't exist
+      	HCreationIfNotFound("*")
+      end
+      
+      
+      if gbInitCompleted=False then
+      	// The initialization is completed
+      	gbInitCompleted = True
+      	
+      	// Returns True during the first initialization
+      	// The caller knows that the variables of the set of procedures have their default values and that they can be replaced
+      	result True
+      end
+      
+      // Returns False during the other initializations (once the AWP context is re-read)
+      // The caller knows that the variables have been re-read in the AWP session
+      result False
+     type : 458752
+   -
+     name : PROJECT_Delete
+     procedure_id : 1897792443024539828
+     type_code : 15
+     code : |1+
+      // Summary: <specify the action of the procedure>
+      // Syntax:
+      //PROJECT_Delete (<nProjectID> is 8-byte int)
+      //
+      // Parameters:
+      //	nProjectID (8-byte integer): <specify the role of nProjectID >
+      // Return value:
+      // 	None
+      //
+      Procédure PROJECT_Delete( nProjectID is 8-byte int )
+      
+      if HReadSeekFirst(Project,ProjectID,nProjectID) then
+      	HDelete(Project)
+      end
+     type : 458752
+   -
+     name : PROJECT_ResponsibleID
+     procedure_id : 1897792443024605364
+     type_code : 15
+     code : |1+
+      // Summary: <specify the action of the procedure>
+      // Syntax:
+      //[ <Result> = ] PROJECT_ManagerID (<stProject> is STProject)
+      //
+      // Parameters:
+      //	stProject (STProject): <specify the role of stProject>
+      // Return value:
+      // 	Undefined type: // 	None
+      //
+      Procédure PROJECT_ResponsibleID( local STProject is STProject )
+      
+      if HReadSeekFirst(UserAccount_Project,ProjectRoleID,[STProject.nProjectID,ROLE_PRJ_RESPONSIBLE]) then
+      	result UserAccount_Project.UserAccountID
+      end
+      
+      result 0
+     type : 458752
+   -
+     name : PROJECT_EmailManager
+     procedure_id : 1897792443024670900
+     type_code : 15
+     code : |1+
+      Procédure PROJECT_EmailManager( local STProject is STProject )
+      
+      if HReadSeekFirst(UserAccount_Project,ProjectRoleID,[STProject.nProjectID,ROLE_PRJ_RESPONSIBLE]) then
+      	clUsr is CUser
+      	if clUsr.bLoadInfo(UserAccount_Project.UserAccountID) then
+      		result clUsr.m_sEmail
+      	end
+      end
+      
+      result ""
+      
+     type : 458752
+   -
+     name : PROJECT_DeleteUser
+     procedure_id : 1897792443024736436
+     type_code : 15
+     code : |1+
+      // Summary: <specify the action of the procedure>
+      // Syntax:
+      //PROJECT_DeleteUser (<nProjectID> is 8-byte int, <sDelEmail> is string)
+      //
+      // Parameters:
+      //	nProjectID (8-byte integer): <specify the role of nProjectID >
+      //	sDelEmail (ANSI string): <specify the role of sDelEmail>
+      // Return value:
+      // 	None
+      //
+      Procédure PROJECT_DeleteUser( local nProjectID is 8-byte int, local sDelEmail is string )
+      
+      nUserID is 8-byte int = nEmailToUserID(sDelEmail)
+      if nUserID>0 then
+      	if HReadSeekFirst(UserAccount_Project,UseAccountID_ProjectID,[nUserID,nProjectID]) then
+      		HDelete(UserAccount_Project)		
+      	end
+      end
+      
+     type : 458752
+   -
+     name : PROJECT_IsContributor
+     procedure_id : 1897792443024801972
+     type_code : 15
+     code : |1-
+      // Summary: <specify the action of the procedure>
+      // Syntax:
+      //[ <Result> = ] PROJECT_IsContributor (<nProjectID> is 8-byte int, <nUsrID> is 8-byte int)
+      //
+      // Parameters:
+      //	nProjectID (8-byte integer): <specify the role of nProjectID >
+      //	nUsrID (8-byte integer): <specify the role of nUsrID>
+      // Return value:
+      // 	boolean: // 	None
+      //
+      Procédure PROJECT_IsContributor( local nProjectID is 8-byte int, local nUsrID is 8-byte int )
+      
+      if HReadSeekFirst(UserAccount_Project,UseAccountID_ProjectID,[nUsrID,nProjectID]) then
+      	result True
+      end
+      
+      result False
+     type : 458752
+   -
+     name : PROJECT_FindInvitation
+     internal_properties : CAAAAAgAAAD0KCwX3Gwxo4cK+HIoDtct0mK4G/TXCCEtU7xDxwUrNE1QLcvSN1UXEvVwPn4I9WfHUp29B9Z+nUIPDwKB8t9sl64S315efvq9LEHHczWDYgPpq5IEeZ9M3QPFHCAJPrjrmDX2UaL/iJ9ByEr6xl4kcJiOMgpj36RwNmSZJ11WqLrmQNn8742oeW02uUVzc8UA2reFekwrXcLI6uj2X8v80Lu3
+     procedure_id : 1897792443024867508
+     type_code : 15
+     code : |1+
+      // Summary: <specify the action of the procedure>
+      // Syntax:
+      //[ <Result> = ] PROJECT_FindInvitation (<sInvitToken> is string, <sEmail> is string)
+      //
+      // Parameters:
+      //	sInvitToken (ANSI string): <specify the role of sInvitToken>
+      //	sEmail (ANSI string): <specify the role of sEmail>
+      // Return value:
+      // 	STInvitationInfo: // 	None
+      //
+      Procédure PROJECT_FindInvitation( local sInvitToken is string, local sEmail is string ) : STInvitationInfo
+      
+      stInfo is STInvitationInfo
+      stInfo.nError = ERR_INVALID_GUEST
+      
+      // Finds the token
+      if HReadSeekFirst(UserAccount_Project,InvitToken,sInvitToken) then
+      	// Limit date of invitation
+      	if UserAccount_Project.InvitationExpiration<>"" then
+      		stInfo.dDeadline = UserAccount_Project.InvitationExpiration
+      		if stInfo.dDeadline<DateSys() then
+      			// Invitation expired
+      			stInfo.nError = ERR_INVIT_EXPIRED
+      			result stInfo
+      		end
+      	end
+      	
+      	// Check the associated email
+      	clGuest is CUser
+      	if clGuest.bLoadInfo(UserAccount_Project.UserAccountID) then
+      		if clGuest.m_sEmail<>sEmail then
+      			// Invalid invitation
+      			result stInfo
+      		end
+      	end
+      	
+      	// Deducts the project
+      	if HReadSeekFirst(Project,ProjectID,UserAccount_Project.ProjectID) then
+      		stInfo.sProjectName = Project.ProjectName
+      	end
+      	
+      	// Deducts the manager
+      	if HReadSeekFirst(UserAccount_Project,ProjectRoleID,[Project.ProjectID,ROLE_PRJ_RESPONSIBLE]) then
+      		clSuperv is CUser
+      		if clSuperv.bLoadInfo(UserAccount_Project.UserAccountID) then
+      			stInfo.sEmailResponsible = clSuperv.m_sEmail
+      			stInfo.nError = ERR_INVIT_OK
+      		end
+      	end
+      end
+      
+      result stInfo
+      
+      
+     type : 458752
+   -
+     name : PROJEcT_InvitationRefusal
+     internal_properties : CAAAAAgAAACFH78P/eBKZP1lyJhCNTF5HWL+FHj8YqJqqBXDikPQsuKeeihmh7vuURtiTt72qxz44mgC+U2ME7e/wH3xpzk/alF4oSsQN4E3aYuQebK9/7hhM5hnmDRyB4YRDmesudfUYDjm/Ceulnd+7joH5VW3ESyxdkHw/lCuJ2APDB5bO28d2iEd55rR3H7T0GxId1indz7Vv0mgs1+j1PDdlBhpWC25Ezl5MPa7A+49LX8uMwRyMdZi
+     procedure_id : 1897792443024933044
+     type_code : 15
+     code : |1+
+      // Summary: <specify the action of the procedure>
+      // Syntax:
+      //PROJECT_RefuseInvitation (<sInvitToken> is string, <sInvitEmail> is string)
+      //
+      // Parameters:
+      //	sInvitToken (ANSI string): <specify the role of sInvitToken>
+      //	sInvitEmail (ANSI string): <specify the role of sInvitEmail>
+      // Return value:
+      // 	None
+      //
+      Procédure PROJEcT_InvitationRefusal( local sInvitToken is string, local sInvitEmail is string )
+      
+      // Finds the token
+      if HReadSeekFirst(UserAccount_Project,InvitToken,sInvitToken) then
+      	nRec is 8-byte int = HRecNum(UserAccount_Project)
+      	// Check the associated email
+      	clGuest is CUser
+      	if clGuest.bLoadInfo(UserAccount_Project.UserAccountID) then
+      		if clGuest.m_sEmail<>sInvitEmail then
+      			// Invalid invitation
+      			return
+      		end
+      	end
+      	
+      	// Deducts the project
+      	if HReadSeekFirst(Project,ProjectID,UserAccount_Project.ProjectID) then
+      		// Deducts the manager
+      		if HReadSeekFirst(UserAccount_Project,ProjectRoleID,[Project.ProjectID,ROLE_PRJ_RESPONSIBLE]) then
+      			clSuperv is CUser
+      			if clSuperv.bLoadInfo(UserAccount_Project.UserAccountID) then
+      				// Notifies the inviting person
+      				cEmail is an Email
+      				with cEmail
+      					.Expediteur = ReadSiteParameter(PARAM_SENDER_EMAIL)
+      					.Sujet = StringBuild("Refusal of invitation to %1 project",Project.ProjectName)
+      					.Message = StringBuild([
+      						%1 was invited to take part in %2 project.
+      						The email recipient refused the invitation, therefore he does not belong to the contributors of this project.
+      					],sInvitEmail,Project.ProjectName)
+      				end
+      				Add(cEmail.Recipient,clSuperv.m_sEmail)
+      				
+      				SendingEmail(cEmail)
+      			end
+      		end
+      	end
+      	
+      	// Deletes the invitation
+      	HDelete(UserAccount_Project,nRec)
+      end
+      
+      
+     type : 458752
+   -
+     name : PROJECT_AcceptInvitation
+     internal_properties : CAAAAAgAAABnOd3RF2Q4tuMnptJoD5cPo7TkKkNulogA4P2tEPPcXvw6FISwBRPsh4s6gARyVxgaTuIm40NkTZErkGvDP217pAWixUFq41OlUWfSZ/I5Q/6xldQFzmzAeULgcYx9tjCPkTm5UUzJtRadsXlA0mbEbA2aBSoJJQutBruOtXv8YAKqV9QKnOWcI1Xab+01AMXCnINQbEYzxqL2j4uqnUm2WDVZj8mt/NZbE4KhdRuqrZ6U07SA
+     procedure_id : 1897792443024998580
+     type_code : 15
+     code : |1+
+      // Summary: <specify the action of the procedure>
+      // Syntax:
+      //PROJECT_AcceptInvitation (<sInvitToken> is string, <sInvitEmail> is string)
+      //
+      // Parameters:
+      //	sInvitToken (ANSI string): <specify the role of sInvitToken>
+      //	sInvitEmail (ANSI string): <specify the role of sInvitEmail>
+      // Return value:
+      // 	None
+      //
+      Procédure PROJECT_AcceptInvitation( local sInvitToken is string, local sInvitEmail is string )
+      
+      // Finds the token
+      if HReadSeekFirst(UserAccount_Project,InvitToken,sInvitToken) then
+      	// Check the associated email
+      	clGuest is CUser
+      	if clGuest.bLoadInfo(UserAccount_Project.UserAccountID) then
+      		if clGuest.m_sEmail<>sInvitEmail then
+      			// Invalid invitation
+      			return
+      		end
+      	end
+      	
+      	// Accepts the invitation
+      	UserAccount_Project.Role = ROLE_PRJ_CONTRIBUTOR
+      	UserAccount_Project.InvitToken = ""
+      	HModify(UserAccount_Project)
+      	
+      	// Deducts the project
+      	if HReadSeekFirst(Project,ProjectID,UserAccount_Project.ProjectID) then
+      		// Deducts the manager
+      		if HReadSeekFirst(UserAccount_Project,ProjectRoleID,[Project.ProjectID,ROLE_PRJ_RESPONSIBLE]) then
+      			clSuperv is CUser
+      			if clSuperv.bLoadInfo(UserAccount_Project.UserAccountID) then
+      				// Notifies the inviting person
+      				cEmail is an Email
+      				with cEmail
+      					.Expediteur = ReadSiteParameter(PARAM_SENDER_EMAIL)
+      					.Sujet = StringBuild("Validation of invitation to %1 project",Project.ProjectName)
+      					.Message = StringBuild([
+      						%1 was invited to take part in %2 project.
+      						The email recipient accepted the invitation, therefore he now belongs to the contributors of this project.
+      					],sInvitEmail,Project.ProjectName)
+      				end
+      				Add(cEmail.Recipient,clSuperv.m_sEmail)
+      				
+      				SendingEmail(cEmail)
+      			end
+      		end
+      	end
+      end
+      
+     type : 458752
+   -
+     name : PROJECT_ListContributors
+     procedure_id : 1897792443025064116
+     type_code : 15
+     code : |1-
+      // Summary: <specify the action of the procedure>
+      // Syntax:
+      //[ <Result> = ] PROJET_ListContributors (<nProjectID> is 8-byte int)
+      //
+      // Parameters:
+      //	nProjectID (8-byte integer): <specify the role of nProjectID >
+      // Return value:
+      // 	table: // None
+      //
+      Procédure PROJECT_ListContributors( local nProjectID is 8-byte int )
+      
+      arrInter is array of CUser
+      
+      for each UserAccount_Project where ProjectID = nProjectID
+      	clInter is CUser
+      	if clInter.bLoadInfo(UserAccount_Project.UserAccountID) then
+      		if clInter.m_bEnabledAccount then
+      			Add(arrInter,clInter)
+      		end
+      	end
+      end
+      
+      
+      result arrInter
+     type : 458752
+   -
+     name : TICKET_Create
+     procedure_id : 1897792443025129652
+     type_code : 15
+     code : |1+
+      // Summary: <specify the action of the procedure>
+      // Syntax:
+      //[ <Result> = ] TICKET_Create (<stNewTicket> is STTicket)
+      //
+      // Parameters:
+      //	stNewTicket (STTicket): <specify the role of stNewTicket>
+      // Return value:
+      // 	Undefined type: // 	None
+      //
+      Procédure TICKET_Create( local stNewTicket is STTicket )
+      
+      stNewTicket.dtCreationDate = DateTimeLocalToUTC(SysDateTime())
+      stNewTicket.bOpened = True
+      stNewTicket.nStatus = STATUS_TICKET_INPROGRESS
+      stNewTicket.nCreatorID = pclCurrentUser().m_nUserAccountID
+      
+      HReset(Ticket)
+      MemoryToFile(stNewTicket,Ticket)
+      HAdd(Ticket)
+      
+      result Ticket.TicketID
+      
+     type : 458752
+   -
+     name : SeverityToStringID
+     procedure_id : 1897792443025195188
+     type_code : 15
+     code : |1+
+      // Summary: <specify the action of the procedure>
+      // Syntax:
+      //[ <Result> = ] SeverityToStringID (<nSeverityID> is int)
+      //
+      // Parameters:
+      //	nSeverityID (integer): <specify the role of nSeverityID>
+      // Return value:
+      // 	ANSI string: // 	None
+      //
+      Procédure SeverityToStringID( local nSeverityID is int )
+      
+      switch nSeverityID
+      	case SEVERITY_MINOR
+      		result "Minor"
+      	case SEVERITY_NORMAL
+      		result "Normal"
+      	case SEVERITY_FATAL
+      		result "Fatal"
+      end
+      
+      ErrorThrow(1,"Unknown severity level")
+      result ""
+      
+      
+      
+     type : 458752
+   -
+     name : TICKET_AddIntervention
+     procedure_id : 1897792443025260724
+     type_code : 15
+     code : |1+
+      // Summary: <specify the action of the procedure>
+      // Syntax:
+      //[ <Result> = ] TICKET_AddIntervention (<stInter> is STIntervention)
+      //
+      // Parameters:
+      //	stInter (STIntervention): <specify the role of stInter>
+      // Return value:
+      // 	Undefined type: // 	None
+      //
+      //	bRefreshTicket (boolean): <specify the role of bRefreshTicket>
+      Procédure TICKET_AddIntervention( local stInter is STIntervention )
+      
+      stInter.dtInterventionDate = DateTimeLocalToUTC(SysDateTime())
+      
+      HReset(Intervention)
+      MemoryToFile(stInter,Intervention)
+      HAdd(Intervention)
+      
+      // Adds the attachments
+      for each stATT of stInter.arrAttachment
+      	HReset(Attachment)
+      	MemoryToFile(stATT,Attachment)
+      	Attachment.InterventionID = Intervention.InterventionID
+      	HAdd(Attachment)
+      end
+      
+      // Refreshes the ticket
+      HReadSeekFirst(Ticket,TicketID,stInter.nTicketID,hLockWrite)
+      Ticket.Severity = stInter.nGravity
+      Ticket.Opened = (stInter.nStatus<>STATUS_TICKET_ENDED)
+      Ticket.TicketStatus = stInter.nStatus
+      HModify(Ticket)
+      
+      result Intervention.InterventionID
+     type : 458752
+   -
+     name : INTERVENTION_AddAttachment
+     procedure_id : 1897792443025326260
+     type_code : 15
+     code : |1+
+      // Summary: <specify the action of the procedure>
+      // Syntax:
+      //INTERVENTION_AddAttachment (<stATT> is STAttachment)
+      //
+      // Parameters:
+      //	stATT (STAttachment): <specify the role of stATT>
+      // Return value:
+      // 	None
+      //
+      Procédure INTERVENTION_AddAttachment( stATT is STAttachment )
+      
+      HReset(Attachment)
+      MemoryToFile(stATT,Attachment)
+      HAdd(Attachment)
+      
+      
+      
+     type : 458752
+   -
+     name : PROJEcT_ListTickets
+     internal_properties : CAAAAAgAAACoo4t6RhVGvtQh/Kj3Pyziax6QgvMN5A+jTQ3UptcbdyAV8Nk0PQnv6xo2AVPoZ8WmWSE/T+StcUleYaqyiLS6/gk3hZmOGKFI0NABVUX7mM42gXRu3MvjevuG9PchDLzxjJaUqleBFiHZftYOJNgYFMCyGBAbT6QU6pC1QxMI1NFO1jyHC6ow6VjCrZgQS+CFZB8vEMYBKZt7fBkjcqc6GYnjDJHj+8xNIQdtsOnNoKR+rLtB31cEnRqijW8tnIFwwki9S5ZSWvdAc8DTgWdjdKSq
+     procedure_id : 1897792443025391796
+     type_code : 15
+     code : |1+
+      // Summary: <specify the action of the procedure>
+      // Syntaxe :
+      //[ <Résultat> = ] PROJEcT_ListTickets (<nProjectID> est entier sur 8 octets, <gaaFilterByStatus> est tableau associatif, <gaaFilterBySeverity> est tableau associatif, <gaaFilterByContributor> est tableau associatif, <sFilterByWord> est chaîne)
+      //
+      // Paramètres :
+      //	nProjectID (entier sur 8 octets) : <specify the role of nProjectID >
+      //	gaaFilterByStatus (tableau associatif) : <specify the role of gaaFilterPerStatus>
+      //	gaaFilterBySeverity (tableau associatif) : <specify the role of gaaFilterPerSeverity>
+      //	gaaFilterByContributor (tableau associatif) : <specify the role of gaaFilterPerContributor>
+      //	sFilterByWord (chaîne ANSI) : <specify the role of sFilterPerWord>
+      
+      // Return value:
+      // 	table: // None
+      Procédure PROJEcT_ListTickets( local nProjectID is 8-byte int, ...
+      local gaaFilterByStatus is ASSOCIATIVE ARRAY of booleans, local gaaFilterBySeverity is associative array  of booleans,
+      	local gaaFilterByContributor is ASSOCIATIVE ARRAY of booleans, local sFilterByWord is string )
+      		
+      		arrTicket is array of STTicket
+      		
+      	for each Ticket where ProjectID = nProjectID
+      		if gaaFilterByStatus..Occurrence>0 _and_ gaaFilterByStatus[Ticket.TicketStatus]=False then continue
+      		if gaaFilterBySeverity..Occurrence>0 _and_ gaaFilterBySeverity[Ticket.Severity]=False then continue
+      		if gaaFilterByContributor..Occurrence>0 _and_ gaaFilterByContributor[Ticket.AssignmentID]=False then continue
+      		
+      		stT is STTicket = TICKET_Read(Ticket.TicketID,False,True)
+      		bAddOK is boolean = True
+      		if sFilterByWord<>"" then
+      			bAddOK = False
+      			for each string sWord of sFilterByWord SEPARATED BY [" ",";",","]
+      				bAddOK = (Position(stT.sSummary,sWord,1,IgnoreCase)>0)
+      				for each stInter of stT.arrIntervention
+      					bAddOK = bAddOK _or_ (Position(stInter.sDetails,sWord,1,IgnoreCase)>0)
+      					if bAddOK then break
+      				end
+      			end
+      		end	
+      		
+      		if bAddOK then
+      			Add(arrTicket,stT)
+      		end
+      	end
+      	
+      result arrTicket
+     type : 458752
+   -
+     name : TICKET_Read
+     procedure_id : 1897792443025457332
+     type_code : 15
+     code : |1+
+      // Summary: <specify the action of the procedure>
+      // Syntax:
+      //[ <Result> = ] TICKET_Read (<nTicketID> is 8-byte int, <bReposition> is boolean, <bWithDetails>)
+      //
+      // Parameters:
+      //	nTicketID (8-byte integer): <specify the role of nTicketID>
+      //	bReposition (boolean): <specify the role of bReposition>
+      //	bWithDetails: <specify the role of bWithDetails>
+      // Return value:
+      // 	STTicket: // 	None
+      //
+      Procédure TICKET_Read( local nTicketID is 8-byte int, local bRepositions is boolean, local bWithDetails ) 
+      
+      if bRepositions then
+      	HReadSeekFirst(Ticket,TicketID,nTicketID)
+      end
+      
+      stTicketInfo is STTicket
+      
+      FileToMemory(stTicketInfo,Ticket)
+      
+      if bWithDetails then
+      	stTicketInfo.sStatus = StatusToStringID(stTicketInfo.nStatus)
+      	
+      	stTicketInfo.sAssignmentDisplayName = USER_DisplayName(stTicketInfo.nAssignmentID) 
+      	
+      	stTicketInfo.sGravity = SeverityToStringID((stTicketInfo.nGravity))
+      	
+      	stPrjInfo is STProject = PROJECT_Read(stTicketInfo.nProjectID,False)
+      	stTicketInfo.sProjectName = stPrjInfo.sProjectName
+      	
+      	HExecuteQuery(QRY_DateLastTicketInter,hQueryDefault,nTicketID)
+      	stTicketInfo.dtLastIntervention = QRY_DateLastTicketInter.InterventionDate
+      	
+      	// Interventions
+      	HExecuteQuery(QRY_ListInterventionsOnTicket,hQueryDefault,nTicketID)
+      	for each QRY_ListInterventionsOnTicket 
+      		stInter is STIntervention
+      		FileToMemory(stInter,QRY_ListInterventionsOnTicket)
+      		stInter.sInterventionDisplayName = USER_DisplayName(stInter.nContributorID)
+      		stInter.sDescriptionChangeStatus = StringBuild("Switch to %1 status",StatusToStringID(stInter.nStatus))
+      		stInter.sDescriptionChangeSeverity = StringBuild("Switch to %1 severity level",SeverityToStringID(stInter.nGravity))
+      		stInter.arrAttachment = INTERVENTION_ListAttachments(stInter.nInterventionID)
+      		Add(stTicketInfo.arrIntervention,stInter)
+      	end
+      	
+      end
+      
+      result stTicketInfo
+     type : 458752
+   -
+     name : StatusToStringID
+     procedure_id : 1897792443025522868
+     type_code : 15
+     code : |1+
+      Procédure StatusToStringID( local nIDStatus is int )
+      
+      switch nIDStatus
+      	case STATUS_TICKET_INPROGRESS 	// The ticket is currently processed
+      		result "In progress"
+      	case STATUS_TICKET_REQUEST 	// The person in charge of ticket requires additional information
+      		result "Information request"
+      	case STATUS_TICKET_SOLVED  	// The ticket content was solved but it was not checked yet
+      		result "Solved"
+      	case STATUS_TICKET_CLOSED   	// The ticket content was rejected but it was not checked yet
+      		result "Closed/Rejected"
+      	case STATUS_TICKET_ENDED 	// The ticket was solved or rejected and checked
+      		result "Closed"
+      end
+      
+      ErrorThrow(1,"Unknown status")
+      result ""
+     type : 458752
+   -
+     name : INTERVENTION_ListAttachments
+     procedure_id : 1897792443025588404
+     type_code : 15
+     code : |1-
+      // Summary: <specify the action of the procedure>
+      // Syntax:
+      //[ <Result> = ] INTERVENTION_ListAttachments (<nInterID> is 8-byte int)
+      //
+      // Parameters:
+      //	nInterID (8-byte integer): <specify the role of nInterID>
+      // Return value:
+      // 	table: // None
+      //
+      Procédure INTERVENTION_ListAttachments( local nInterID is 8-byte int )
+      
+      arrATT is array of STAttachment
+      for each Attachment where InterventionID = nInterID
+      	// Don't use ATTACHMENT_Read or FileToMemory to avoid transferring the content of memo!
+      	stATT is STAttachment
+      	stATT.nAttachmentID = Attachment.AttachmentID
+      	stATT.sFileName = Attachment.Description
+      	stATT.nFileSize = ExtractString(HInfoMemo(Attachment,Content),3)
+      	Add(arrATT,stATT)
+      end
+      
+      result arrATT
+     type : 458752
+   -
+     name : ATTACHMENT_Read
+     procedure_id : 1897792443025653940
+     type_code : 15
+     code : |1+
+      // Summary: <specify the action of the procedure>
+      // Syntax:
+      //[ <Result> = ] ATTACHMENT_Read (<nATTID> is 8-byte int)
+      //
+      // Parameters:
+      //	nATTID (8-byte integer): <specify the role of nATTID>
+      // Return value:
+      // 	STAttachment: // 	None
+      //
+      Procédure ATTACHMENT_Read( local nATTID is 8-byte int )
+      
+      stATT is STAttachment
+      if HReadSeekFirst(Attachment,AttachmentID,nATTID) then
+      	FileToMemory(stATT,Attachment)
+      	stATT.nFileSize = ExtractString(HInfoMemo(Attachment,Content),3)
+      end
+      
+      result stATT
+      
+     type : 458752
+   -
+     name : TICKET_ChangeAssignment
+     procedure_id : 1897792443025719476
+     type_code : 15
+     code : |1+
+      // Summary: <specify the action of the procedure>
+      // Syntax:
+      //TICKET_ChangeAssignment (<nTicketID> is 8-byte int, <nAssignmentID> is 8-byte int)
+      //
+      // Parameters:
+      //	nTicketID (8-byte integer): <specify the role of nTicketID>
+      //	nAssignmentID (8-byte integer): <specify the role of nAssignmentID>
+      // Return value:
+      // 	None
+      //
+      Procédure TICKET_ChangeAssignment( local nTicketID is 8-byte int, local nAssignmentID is 8-byte int)
+      
+      if HReadSeekFirst(Ticket,TicketID,nTicketID,hLockWrite) then
+      	Ticket.AssignmentID = nAssignmentID
+      	HModify(Ticket)
+      end
+      
+      
+     type : 458752
+  procedure_templates : []
+  property_templates : []
+ code_parameters :
+  internal_properties : CAAAAAgAAACVGQgYbalU7DKC3oH4ItDrjtcTHXXV/EuH8q0IbhyQlw==
+  original_name : COL_SansNom1
+resources :
+ string_res :
+  identifier : 0x100699fe22e0b40d
+  internal_properties : CAAAAAgAAACm76HWfKGWp33VjXInA4cRlqArlgTTA862QGt72W2ld5Y=
+custom_note :
+ internal_properties : CAAAAAgAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ
